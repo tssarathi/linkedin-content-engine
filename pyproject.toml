@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linkedin-content-engine"
+version = "1.1.6"
+requires-python = ">=3.11"
+authors = [{ name = "Sarathi" }]
+dependencies = [
+    "python-dotenv",
+    "pydantic",
+    "langchain",
+    "langchain-community",
+    "langchain-mcp-adapters",
+    "ddgs",
+    "langchain-groq",
+]
+
+[tool.setuptools.packages.find]
+include = ["research_agent*", "shared*"]
