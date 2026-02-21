@@ -3,3 +3,12 @@ python-dotenv
 
 # -- Data Validation --
 pydantic
+
+# -- LangChain --
+langchain
+
+## -- MCP --
+langchain-mcp-adapters
+
+## -- LLMs --
+langchain-groq
