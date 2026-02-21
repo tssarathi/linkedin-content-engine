@@ -14,9 +14,11 @@ __pycache__/
 
 # -- Plan --
 plan.pdf
+plan_v2.pdf
 
 # -- logs --
 logs/
 
 # -- Apple --
 .DS_Store
+
