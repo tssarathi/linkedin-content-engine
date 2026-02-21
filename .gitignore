@@ -3,6 +3,7 @@
 
 # -- IDE Settings --
 .cursor/
+.vscode/
 
 # -- Environment Variables --
 .env
@@ -13,3 +14,9 @@ __pycache__/
 
 # -- Plan --
 plan.pdf
+
+# -- logs --
+logs/
+
+# -- Apple --
+.DS_Store
