@@ -6,10 +6,6 @@ from research_agent.state import ResearchState
 
 
 async def test_with_github_analysis() -> None:
-    """Flow 1: User provided a GitHub URL. The GitHub Analyzer has already
-    run and populated GA_project_analysis. The Supervisor reads it and
-    produces enriched buzzwords + project_context."""
-
     print("=" * 60)
     print("TEST: Supervisor with GitHub Analysis (Flow 1)")
     print("=" * 60)
@@ -45,10 +41,7 @@ async def test_with_github_analysis() -> None:
     print("\nAll assertions passed.\n")
 
 
-async def test_without_github(  ) -> None:
-    """Flow 2: No GitHub URL. The Supervisor works from the request alone,
-    producing broader buzzwords and context."""
-
+async def test_without_github() -> None:
     print("=" * 60)
     print("TEST: Supervisor without GitHub (Flow 2)")
     print("=" * 60)
@@ -69,9 +62,6 @@ async def test_without_github(  ) -> None:
 
 
 async def test_vague_request() -> None:
-    """Edge case: vague request with no clear intent. Should degrade
-    gracefully to industry_insight with generic but usable output."""
-
     print("=" * 60)
     print("TEST: Vague request (graceful degradation)")
     print("=" * 60)

@@ -13,18 +13,7 @@ logger = get_logger(__name__)
 
 
 def _build_supervisor_context(state: ResearchState) -> str:
-    """Assemble the information the Supervisor LLM needs to make its decision.
-
-    This is structurally similar to the Synthesizer's _build_research_context,
-    but with a crucial difference: the Synthesizer receives ALL agent outputs
-    (it runs last). The Supervisor receives only the request and optionally
-    the GitHub analysis (it runs early, before the research agents).
-
-    The Supervisor's context is intentionally sparse — it only knows the
-    request and what the GitHub Analyzer found. It does NOT see news findings
-    or trend data, because those agents haven't run yet. The Supervisor's
-    job is to SET UP what those agents will search for.
-    """
+    """Build context string for the Supervisor LLM from request and optional GitHub analysis."""
     sections: list[str] = []
 
     sections.append(f"## User Request\n{state['request']}")
@@ -46,17 +35,7 @@ def _build_supervisor_context(state: ResearchState) -> str:
 
 
 async def supervisor_agent(state: ResearchState) -> dict:
-    """Phase 2 of the Supervisor: Context Distribution.
-
-    Phase 1 (routing — "should we run GitHub Analyzer?") is handled by
-    a deterministic conditional edge in graph.py, not by this function.
-    By the time this function runs, the GitHub Analyzer has already
-    completed (if it was needed), and its output is in the state.
-
-    This function reads the available context, calls the LLM to produce
-    structured routing decisions, and returns a dict whose keys map
-    directly to ResearchState fields.
-    """
+    """Run the Supervisor: read state, call LLM with structured output, return routing decisions."""
     logger.info("Supervisor Agent started — distributing context")
 
     context = _build_supervisor_context(state)

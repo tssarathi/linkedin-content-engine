@@ -4,15 +4,7 @@ from pydantic import BaseModel, Field
 
 
 class SupervisorOutput(BaseModel):
-    """The Supervisor's structured output — routing decisions and context,
-    not research content.
-
-    Every field in this schema corresponds to a field in ResearchState.
-    When LangGraph merges the Supervisor's return dict into state, these
-    values flow directly into the state without any wrapping or mapping.
-    This is intentional: the Supervisor's job IS to set state, so its
-    schema IS the state mutation.
-    """
+    """Routing decisions and context distributed to downstream research agents."""
 
     post_type: Literal[
         "project_showcase",

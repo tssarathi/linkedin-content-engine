@@ -13,12 +13,7 @@ logger = get_logger(__name__)
 
 
 def _build_research_context(state: ResearchState) -> str:
-    """Assemble all agent outputs into a single context string.
-
-    Each section is included only if the corresponding agent produced output.
-    The Synthesizer LLM receives this as its sole input — it has no tools to
-    look anything up itself, so this context must be comprehensive.
-    """
+    """Assemble all agent outputs into a single context string for the Synthesizer LLM."""
     sections: list[str] = []
 
     sections.append(f"## Original Request\n{state['request']}")

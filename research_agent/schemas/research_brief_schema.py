@@ -23,11 +23,7 @@ class SupportingEvidence(BaseModel):
 
 
 class ResearchBrief(BaseModel):
-    """The final output of System 1 — the data contract System 2 consumes via A2A.
-
-    This schema represents a complete, actionable research brief that contains
-    everything needed to write a LinkedIn post without any additional research.
-    """
+    """Complete research brief containing everything needed to write a LinkedIn post."""
 
     narrative_angle: str = Field(
         description="The ONE compelling story angle that ties all the research together. "
