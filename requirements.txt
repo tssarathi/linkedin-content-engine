@@ -6,9 +6,13 @@ pydantic
 
 # -- LangChain --
 langchain
+langchain-community
 
 ## -- MCP --
 langchain-mcp-adapters
+
+# -- Search --
+ddgs
 
 ## -- LLMs --
 langchain-groq

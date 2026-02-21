@@ -10,5 +10,8 @@ class Config:
     RA_GA_GROQ_API_KEY = os.getenv("RA_GA_GROQ_API_KEY")
     RA_GA_GITHUB_API_KEY = os.getenv("RA_GA_GITHUB_API_KEY")
 
+    # -- News Researcher --
+    RA_NR_GROQ_API_KEY = os.getenv("RA_NR_GROQ_API_KEY")
+
 
 config = Config()
