@@ -8,7 +8,7 @@ from research_agent.state import ResearchState
 async def main() -> None:
     state: ResearchState = {
         "request": "Search for the latest news on the OpenClaw framework",
-        "NR_post_type": "LinkedIn Post",
+        "post_type": "LinkedIn Post",
         "buzzwords": ["AI", "OpenClaw"],
     }
 

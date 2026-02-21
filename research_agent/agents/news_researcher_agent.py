@@ -17,7 +17,7 @@ async def news_researcher_Agent(state: ResearchState) -> None:
     logger.info("News Researcher Agent Started")
 
     request = state["request"]
-    post_type = state["NR_post_type"]
+    post_type = state["post_type"]
     buzzwords = state["buzzwords"]
 
     tools = [search]
