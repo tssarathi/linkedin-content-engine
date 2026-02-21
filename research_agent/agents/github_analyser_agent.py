@@ -1,4 +1,5 @@
 from langchain.agents import create_agent
+from langchain.agents.structured_output import ToolStrategy
 from langchain_groq import ChatGroq
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
@@ -45,10 +46,10 @@ async def github_analyzer_agent(state: ResearchState) -> dict:
     )
 
     model = ChatGroq(
-        model="llama-3.1-8b-instant",
+        model="llama-3.3-70b-versatile",
         temperature=0,
         api_key=config.RA_GA_GROQ_API_KEY,
-        max_tokens=800,
+        max_tokens=4096,
     )
 
     agent = create_agent(
@@ -56,7 +57,7 @@ async def github_analyzer_agent(state: ResearchState) -> dict:
         tools=tools,
         system_prompt=SYSTEM_PROMPT,
         name="github_analyser",
-        response_format=ProjectAnalysis,
+        response_format=ToolStrategy(ProjectAnalysis),
     )
 
     result = await agent.ainvoke(
@@ -74,7 +75,6 @@ async def github_analyzer_agent(state: ResearchState) -> dict:
     )
 
     analysis = result["structured_response"]
-    analysis["repo_metadata"] = {"owner": owner, "name": repo}
-    logger.info("Github Analyser Agent Completed with Summary: %s", analysis["summary"])
+    logger.info("Github Analyser Agent Completed with Summary")
 
-    return analysis
+    return analysis.model_dump()
