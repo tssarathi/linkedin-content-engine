@@ -21,5 +21,11 @@ class Config:
     RA_FC_GROQ_API_KEY = os.getenv("RA_FC_GROQ_API_KEY")
     RA_FC_TAVILY_API_KEY = os.getenv("RA_FC_TAVILY_API_KEY")
 
+    # -- Synthesizer --
+    RA_SY_GROQ_API_KEY = os.getenv("RA_SY_GROQ_API_KEY")
+
+    # -- Supervisor --
+    RA_SU_GROQ_API_KEY = os.getenv("RA_SU_GROQ_API_KEY")
+
 
 config = Config()
