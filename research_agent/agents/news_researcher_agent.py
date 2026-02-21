@@ -13,7 +13,7 @@ logger = get_logger(__name__)
 search = DuckDuckGoSearchResults()
 
 
-async def news_researcher_Agent(state: ResearchState) -> None:
+async def news_researcher_agent(state: ResearchState) -> dict:
     logger.info("News Researcher Agent Started")
 
     request = state["request"]
