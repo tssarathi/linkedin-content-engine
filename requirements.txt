@@ -1,2 +1,5 @@
 # -- Environment Variables --
 python-dotenv
+
+# -- Data Validation --
+pydantic
