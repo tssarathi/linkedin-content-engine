@@ -1,0 +1,101 @@
+import asyncio
+import pprint as pp
+
+from research_agent.agents.supervisor import supervisor_agent
+from research_agent.state import ResearchState
+
+
+async def test_with_github_analysis() -> None:
+    """Flow 1: User provided a GitHub URL. The GitHub Analyzer has already
+    run and populated GA_project_analysis. The Supervisor reads it and
+    produces enriched buzzwords + project_context."""
+
+    print("=" * 60)
+    print("TEST: Supervisor with GitHub Analysis (Flow 1)")
+    print("=" * 60)
+
+    state: ResearchState = {
+        "request": "Write a LinkedIn post about my multi-agent content engine project",
+        "GA_repo_url": "https://github.com/sarathi/linkedin-content-engine",
+        "GA_project_analysis": {
+            "summary": (
+                "A multi-agent LinkedIn content engine that orchestrates research "
+                "agents via LangGraph. It uses MCP for tool integration (GitHub, "
+                "Exa, Tavily) and produces structured research briefs that feed "
+                "into a content generation service."
+            ),
+            "tech_stack": ["Python", "LangGraph", "FastAPI", "Pydantic", "Groq"],
+            "recent_activity": "Added Fact Checker agent with Tavily MCP verification loop",
+            "key_features": [
+                "Multi-agent orchestration with LangGraph StateGraph",
+                "MCP stdio transport for GitHub, Exa, and Tavily tools",
+                "Hybrid search: DuckDuckGo (keyword) + Exa (semantic)",
+                "Fact-checking with loop-back for unverified claims",
+                "Structured output via Pydantic schemas at every stage",
+            ],
+        },
+    }
+
+    result = await supervisor_agent(state)
+    pp.pprint(result)
+
+    assert result["post_type"] == "project_showcase"
+    assert len(result["buzzwords"]) >= 5
+    assert len(result["project_context"]) > 50
+    print("\nAll assertions passed.\n")
+
+
+async def test_without_github(  ) -> None:
+    """Flow 2: No GitHub URL. The Supervisor works from the request alone,
+    producing broader buzzwords and context."""
+
+    print("=" * 60)
+    print("TEST: Supervisor without GitHub (Flow 2)")
+    print("=" * 60)
+
+    state: ResearchState = {
+        "request": "Write a hot take about AI agents replacing traditional software",
+        "GA_repo_url": None,
+        "GA_project_analysis": None,
+    }
+
+    result = await supervisor_agent(state)
+    pp.pprint(result)
+
+    assert result["post_type"] == "hot_take"
+    assert len(result["buzzwords"]) >= 5
+    assert len(result["project_context"]) > 50
+    print("\nAll assertions passed.\n")
+
+
+async def test_vague_request() -> None:
+    """Edge case: vague request with no clear intent. Should degrade
+    gracefully to industry_insight with generic but usable output."""
+
+    print("=" * 60)
+    print("TEST: Vague request (graceful degradation)")
+    print("=" * 60)
+
+    state: ResearchState = {
+        "request": "Write me a LinkedIn post about AI",
+        "GA_repo_url": None,
+        "GA_project_analysis": None,
+    }
+
+    result = await supervisor_agent(state)
+    pp.pprint(result)
+
+    assert result["post_type"] in ("ai_news", "industry_insight", "hot_take")
+    assert len(result["buzzwords"]) >= 3
+    assert len(result["project_context"]) > 20
+    print("\nAll assertions passed.\n")
+
+
+async def main() -> None:
+    await test_with_github_analysis()
+    await test_without_github()
+    await test_vague_request()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
