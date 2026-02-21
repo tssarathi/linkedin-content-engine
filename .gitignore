@@ -1,0 +1,8 @@
+# -- Virtual Enviroinment --
+.venv/
+
+# -- IDE Settings --
+.cursor/
+
+# -- Environment Variables --
+.env
