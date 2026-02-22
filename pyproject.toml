@@ -4,12 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "linkedin-content-engine"
-version = "1.1.6"
+version = "1.2.0"
 requires-python = ">=3.11"
 authors = [{ name = "Sarathi" }]
 dependencies = [
     "python-dotenv",
     "pydantic",
+    "langgraph",
     "langchain",
     "langchain-community",
     "langchain-mcp-adapters",

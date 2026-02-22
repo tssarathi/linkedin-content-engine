@@ -4,15 +4,18 @@ python-dotenv
 # -- Data Validation --
 pydantic
 
+# -- Search --
+ddgs
+
+# -- LangGrapg --
+langgraph
+
 # -- LangChain --
 langchain
 langchain-community
 
 ## -- MCP --
 langchain-mcp-adapters
-
-# -- Search --
-ddgs
 
 ## -- LLMs --
 langchain-groq
