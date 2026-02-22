@@ -4,8 +4,8 @@ from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
 
-from content_agent.agent import root_agent
-from pipeline.prompt_parser import parse_prompt
+from content_agent.pipeline import root_agent
+from shared.prompt_parser import parse_prompt
 from research_agent.graph import app
 
 

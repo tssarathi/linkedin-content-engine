@@ -1,7 +1,7 @@
 from google.adk.agents.callback_context import CallbackContext
 from google.adk.agents.llm_agent import Agent
 
-from content_agent.instruction.editor_instruction import DESCRIPTION, INSTRUCTION
+from content_agent.prompts.editor_instruction import DESCRIPTION, INSTRUCTION
 from content_agent.schemas.editor_schema import EditorReview
 
 
