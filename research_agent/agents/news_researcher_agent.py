@@ -17,8 +17,8 @@ async def news_researcher_agent(state: ResearchState) -> dict:
     logger.info("News Researcher Agent Started")
 
     request = state["request"]
-    post_type = state["post_type"]
-    buzzwords = state["buzzwords"]
+    post_type = state.get("post_type", "")
+    buzzwords = state.get("buzzwords", [])
 
     search = GoogleSerperRun(
         api_wrapper=GoogleSerperAPIWrapper(

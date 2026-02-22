@@ -44,11 +44,13 @@ async def fact_checker_agent(state: ResearchState) -> dict:
 
     if not claims_message:
         logger.warning("No research findings to verify — skipping fact check")
-        return FactCheckResults(
-            claim_verifications=[],
-            search_queries_used=[],
-            summary="No research findings were provided to verify.",
-        ).model_dump()
+        return {
+            "FC_fact_check_results": FactCheckResults(
+                claim_verifications=[],
+                search_queries_used=[],
+                summary="No research findings were provided to verify.",
+            ).model_dump()
+        }
 
     mcp_servers = {
         "tavily": {
@@ -63,6 +65,12 @@ async def fact_checker_agent(state: ResearchState) -> dict:
 
     all_tools = await client.get_tools()
     tools = [t for t in all_tools if t.name in ALLOWED_TOOLS]
+
+    if not tools:
+        raise RuntimeError(
+            f"Tavily MCP server returned no usable tools. "
+            f"Expected {ALLOWED_TOOLS}, got {[t.name for t in all_tools]}"
+        )
 
     logger.debug(
         "Using %d/%d Tavily MCP tools: %s",
