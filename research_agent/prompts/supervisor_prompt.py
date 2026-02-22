@@ -17,15 +17,15 @@ literally appear in news articles and technical blog posts.
 
 Extraction rules:
 - If GitHub analysis is available:
-  * Extract framework/library names from tech_stack (e.g., "LangGraph", \
-    "FastAPI")
-  * Extract protocol/standard names from key_features (e.g., "MCP", "A2A")
-  * Extract the project's domain keywords from summary (e.g., "multi-agent", \
-    "orchestration")
+  * Copy framework/library names EXACTLY from tech_stack (whatever they are — \
+    could be "R Shiny", "FastAPI", "React", "LangGraph", or anything else)
+  * Extract protocol/standard names from key_features if explicitly named
+  * Extract the project's domain keywords from summary (whatever domain it is — \
+    "geospatial visualization", "multi-agent orchestration", "mobile commerce", etc.)
 - If no GitHub analysis:
   * Extract named technologies, companies, and specific concepts from the \
     user's request
-  * Add temporal qualifiers where useful (e.g., "AI agents 2026")
+  * Add temporal qualifiers where useful (e.g., "R Shiny 2026", "AI agents 2026")
 - ALWAYS: 5-10 terms, specific before generic, proper nouns before common terms
 - NEVER: "technology", "innovation", "software" alone — these match everything \
   and find nothing useful
@@ -76,9 +76,12 @@ safest default — it produces useful content for any topic.
    buzzword. "A distributed system for real-time event processing using \
    Apache Kafka" is better project_context than "a data tool."
 
-3. When you have a GitHub analysis, USE IT. The tech_stack, key_features, \
-   and summary are gold — they contain the exact terms and concepts that \
-   make searches precise. Don't ignore them in favor of generic terms.
+3. When you have a GitHub analysis, USE IT FAITHFULLY. The tech_stack, \
+   key_features, and summary are ground truth — copy framework/library \
+   names EXACTLY as listed. NEVER substitute, infer, or add technologies \
+   not explicitly present in the analysis. The project is what it is; \
+   do not reframe it as an AI/ML project unless AI/ML explicitly appears \
+   in the analysis.
 
 4. When you have NO GitHub analysis, work with what the user gave you. \
    A vague request produces vague buzzwords — that's acceptable. \

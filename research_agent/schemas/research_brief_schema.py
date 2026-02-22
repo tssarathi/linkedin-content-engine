@@ -28,8 +28,10 @@ class ResearchBrief(BaseModel):
     narrative_angle: str = Field(
         description="The ONE compelling story angle that ties all the research together. "
         "This is not a topic — it is a specific, opinionated angle on the topic. "
-        "Example: not 'AI agents' but 'Why AI agents are replacing traditional "
-        "ETL pipelines, and what that means for data engineers'"
+        "The angle must reflect what this project or topic ACTUALLY is. "
+        "Example for data viz: 'How visualizing 32,000 bird sightings revealed hidden "
+        "migration patterns in Melbourne no one was tracking'. "
+        "Example for AI: 'Why function-calling is replacing RAG for structured data tasks'."
     )
     key_points: list[str] = Field(
         description="3-5 main talking points for the post, ordered by importance. "
@@ -49,8 +51,10 @@ class ResearchBrief(BaseModel):
         "Each should be a complete first line that creates curiosity or tension"
     )
     target_audience: str = Field(
-        description="Who this post speaks to — specific enough to guide tone and vocabulary "
-        "(e.g., 'Senior engineers evaluating agent frameworks' not just 'developers')"
+        description="Who this post speaks to — specific enough to guide tone and vocabulary. "
+        "Must reflect the project's actual domain. "
+        "e.g., 'Data scientists building geospatial dashboards' or "
+        "'ML engineers evaluating agent frameworks' — not just 'developers' or 'tech professionals'"
     )
     brief_summary: str = Field(
         description="A concise 2-3 sentence summary of the research brief for human-in-the-loop review. "

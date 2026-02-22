@@ -52,10 +52,12 @@ async def news_researcher_agent(state: ResearchState) -> dict:
                 {
                     "role": "user",
                     "content": (
-                        f"Find the latest AI and tech news related to: {request}\n"
+                        f"Find the latest news relevant to: {request}\n"
                         f"Post type: {post_type}\n"
                         f"Buzzwords: {buzzwords}\n"
-                        f"The news should be relevant to the buzzwords and the post type. "
+                        f"Search for news in the project's actual domain — use the buzzwords "
+                        f"to determine what domain this is (e.g., data visualization, "
+                        f"geospatial, AI agents, open source). "
                         f"The news should be from the last 90 days."
                     ),
                 }

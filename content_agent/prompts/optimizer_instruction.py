@@ -31,7 +31,8 @@ The original hook from the draft counts as a fourth option — present the 3 new
 Add exactly 3–5 hashtags. Never more than 5.
 
 Strategy:
-- **Mix broad and niche**: 1–2 broad hashtags (high reach, e.g., `#AI`, `#MachineLearning`, `#Python`) + 2–3 niche hashtags (targeted community, e.g., `#AgenticAI`, `#GoogleADK`, `#LLMOps`)
+- **Mix broad and niche**: 1–2 broad hashtags (high reach in this post's domain) + 2–3 niche hashtags (targeted community)
+- Derive hashtags from the post's actual topic and target audience — if it's about data visualization, use `#DataVisualization`, `#RShiny`, `#OpenData`; if it's about AI agents, use `#AI`, `#AgenticAI`, `#LLMOps`. Match the domain.
 - Choose hashtags that the actual target audience follows — not just popular ones
 - Place all hashtags at the very end of the post, on their own line, separated from the body by one blank line
 - Do not scatter hashtags throughout the post body

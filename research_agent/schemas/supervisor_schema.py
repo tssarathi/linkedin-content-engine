@@ -21,13 +21,15 @@ class SupervisorOutput(BaseModel):
         "'industry_insight' for trend analysis or market commentary"
     )
     buzzwords: list[str] = Field(
-        description="5-10 precise keywords optimized for DuckDuckGo's lexical search. "
-        "These must be specific terms that appear literally in web pages: "
-        "framework names ('LangGraph'), protocol names ('MCP'), "
-        "company names ('Anthropic'), versioned terms ('GPT-4o'). "
+        description="5-10 precise keywords optimized for keyword search. "
+        "ONLY use terms that appear EXPLICITLY in the GitHub analysis or user request — "
+        "never infer, guess, or add technologies not present in the source data. "
+        "Examples: framework names from the actual tech_stack, "
+        "domain terms from the project summary, "
+        "tool/library names the README explicitly mentions. "
         "Order by specificity — most specific first. "
-        "NEVER include generic terms like 'technology' or 'AI' alone — "
-        "they return noise in keyword search"
+        "NEVER include generic terms like 'technology' alone — "
+        "they return noise in keyword search."
     )
     project_context: str = Field(
         description="A 2-4 sentence natural language summary optimized for "
