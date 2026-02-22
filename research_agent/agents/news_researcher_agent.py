@@ -70,4 +70,4 @@ async def news_researcher_agent(state: ResearchState) -> dict:
         len(findings.news_items),
     )
 
-    return findings.model_dump()
+    return {"NR_news_findings": findings.model_dump()}

@@ -112,4 +112,4 @@ async def fact_checker_agent(state: ResearchState) -> dict:
         "Fact Checker Agent Completed. %d/%d claims verified", verified, total
     )
 
-    return fact_check_results.model_dump()
+    return {"FC_fact_check_results": fact_check_results.model_dump()}

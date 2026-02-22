@@ -75,4 +75,4 @@ async def synthesizer_agent(state: ResearchState) -> dict:
 
     logger.info("Synthesizer Agent Completed.")
 
-    return result.model_dump()
+    return {"research_brief": result.model_dump()}

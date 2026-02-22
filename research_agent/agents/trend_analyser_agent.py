@@ -88,4 +88,4 @@ async def trend_analyser_agent(state: ResearchState) -> dict:
         len(trend_data.trending_topics),
     )
 
-    return trend_data.model_dump()
+    return {"TA_trend_data": trend_data.model_dump()}
