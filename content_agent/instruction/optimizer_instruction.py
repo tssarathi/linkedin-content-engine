@@ -52,10 +52,10 @@ Return a structured `LinkedInPost` object:
 
 ```
 hook_variants:
-  - variant_1: [question style]
-  - variant_2: [bold claim style]
-  - variant_3: [relatable statement style]
-  original_hook: [the hook from the approved draft]
+  question: [question style]
+  bold_claim: [bold claim style]
+  relatable_statement: [relatable statement style]
+  original: [the hook from the approved draft]
 
 body: |
   [The complete post body, fully formatted, WITHOUT hashtags]
