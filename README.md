@@ -12,13 +12,13 @@ User Prompt (+ optional GitHub URL)
 │         RESEARCH PIPELINE (LangGraph)   │
 │                                         │
 │  ┌──────────────┐   ┌──────────────┐    │
-│  │   GitHub      │──▶│  Supervisor  │    │
-│  │   Analyser    │   │              │    │
+│  │   GitHub     │──▶│  Supervisor  │    │
+│  │   Analyser   │   │              │    │
 │  └──────────────┘   └──────┬───────┘    │
 │                       ┌────┴────┐       │
 │                       ▼         ▼       │
 │              ┌──────────┐ ┌──────────┐  │
-│              │  News     │ │  Trend   │  │
+│              │  News    │ │  Trend   │  │
 │              │Researcher│ │ Analyser │  │
 │              └────┬─────┘ └────┬─────┘  │
 │                   └─────┬──────┘        │
