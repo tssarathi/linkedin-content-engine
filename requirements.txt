@@ -19,3 +19,6 @@ langchain-mcp-adapters
 
 ## -- LLMs --
 langchain-groq
+
+# -- Google ADK --
+google-adk
