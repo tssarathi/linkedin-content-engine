@@ -12,7 +12,7 @@ from shared.logger import get_logger
 logger = get_logger(__name__)
 
 
-async def github_analyzer_agent(state: ResearchState) -> dict:
+async def github_analyser_agent(state: ResearchState) -> dict:
     logger.info("Github Analyser Agent Started")
 
     repo_url = state["GA_repo_url"]

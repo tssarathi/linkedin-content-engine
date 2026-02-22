@@ -1,7 +1,7 @@
 import asyncio
 from pprint import pprint
 
-from research_agent.agents.github_analyser_agent import github_analyzer_agent
+from research_agent.agents.github_analyser_agent import github_analyser_agent
 from research_agent.state import ResearchState
 
 
@@ -12,7 +12,7 @@ async def main() -> None:
         "GA_project_analysis": None,
     }
 
-    analysis = await github_analyzer_agent(state)
+    analysis = await github_analyser_agent(state)
     pprint(analysis)
 
 
