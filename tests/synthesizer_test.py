@@ -1,11 +1,10 @@
 import asyncio
-import pprint as pp
 
 from research_agent.agents.synthesizer_agent import synthesizer_agent
 from research_agent.state import ResearchState
 
 
-async def main() -> None:
+async def test_synthesizer() -> None:
     state: ResearchState = {
         "request": "Write a LinkedIn post about my multi-agent content engine project",
         "post_type": "project_showcase",
@@ -185,8 +184,19 @@ async def main() -> None:
         },
     }
 
-    brief = await synthesizer_agent(state)
-    pp.pprint(brief)
+    result = await synthesizer_agent(state)
+
+    brief = result.get("research_brief")
+    assert brief is not None, "research_brief should not be None"
+    assert brief["narrative_angle"], "narrative_angle should not be empty"
+    assert len(brief["key_points"]) >= 3, "should have at least 3 key points"
+    assert len(brief["hook_suggestions"]) >= 2, "should have at least 2 hooks"
+    print("PASS: Synthesizer")
+
+
+async def main() -> None:
+    await test_synthesizer()
+    print("ALL TESTS PASSED")
 
 
 if __name__ == "__main__":

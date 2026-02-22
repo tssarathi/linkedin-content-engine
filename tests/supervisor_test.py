@@ -1,15 +1,10 @@
 import asyncio
-import pprint as pp
 
 from research_agent.agents.supervisor import supervisor_agent
 from research_agent.state import ResearchState
 
 
 async def test_with_github_analysis() -> None:
-    print("=" * 60)
-    print("TEST: Supervisor with GitHub Analysis (Flow 1)")
-    print("=" * 60)
-
     state: ResearchState = {
         "request": "Write a LinkedIn post about my multi-agent content engine project",
         "GA_repo_url": "https://github.com/sarathi/linkedin-content-engine",
@@ -33,19 +28,14 @@ async def test_with_github_analysis() -> None:
     }
 
     result = await supervisor_agent(state)
-    pp.pprint(result)
 
     assert result["post_type"] == "project_showcase"
     assert len(result["buzzwords"]) >= 5
     assert len(result["project_context"]) > 50
-    print("\nAll assertions passed.\n")
+    print("PASS: Supervisor — with GitHub analysis")
 
 
 async def test_without_github() -> None:
-    print("=" * 60)
-    print("TEST: Supervisor without GitHub (Flow 2)")
-    print("=" * 60)
-
     state: ResearchState = {
         "request": "Write a hot take about AI agents replacing traditional software",
         "GA_repo_url": None,
@@ -53,19 +43,14 @@ async def test_without_github() -> None:
     }
 
     result = await supervisor_agent(state)
-    pp.pprint(result)
 
     assert result["post_type"] == "hot_take"
     assert len(result["buzzwords"]) >= 5
     assert len(result["project_context"]) > 50
-    print("\nAll assertions passed.\n")
+    print("PASS: Supervisor — without GitHub URL")
 
 
 async def test_vague_request() -> None:
-    print("=" * 60)
-    print("TEST: Vague request (graceful degradation)")
-    print("=" * 60)
-
     state: ResearchState = {
         "request": "Write me a LinkedIn post about AI",
         "GA_repo_url": None,
@@ -73,18 +58,18 @@ async def test_vague_request() -> None:
     }
 
     result = await supervisor_agent(state)
-    pp.pprint(result)
 
     assert result["post_type"] in ("ai_news", "industry_insight", "hot_take")
     assert len(result["buzzwords"]) >= 3
     assert len(result["project_context"]) > 20
-    print("\nAll assertions passed.\n")
+    print("PASS: Supervisor — vague request")
 
 
 async def main() -> None:
     await test_with_github_analysis()
     await test_without_github()
     await test_vague_request()
+    print("ALL TESTS PASSED")
 
 
 if __name__ == "__main__":

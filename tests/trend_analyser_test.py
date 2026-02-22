@@ -1,11 +1,10 @@
 import asyncio
-import pprint as pp
 
 from research_agent.agents.trend_analyser_agent import trend_analyser_agent
 from research_agent.state import ResearchState
 
 
-async def main() -> None:
+async def test_trend_analyser() -> None:
     state: ResearchState = {
         "request": "AI agents and multi-agent systems using LangGraph",
         "project_context": (
@@ -17,7 +16,17 @@ async def main() -> None:
     }
 
     trend_data = await trend_analyser_agent(state)
-    pp.pprint(trend_data)
+
+    ta = trend_data.get("TA_trend_data")
+    assert ta is not None, "TA_trend_data should not be None"
+    assert len(ta["trending_topics"]) >= 1, "should have at least 1 trending topic"
+    assert len(ta["recommended_hashtags"]) >= 1, "should have at least 1 hashtag"
+    print("PASS: Trend Analyser")
+
+
+async def main() -> None:
+    await test_trend_analyser()
+    print("ALL TESTS PASSED")
 
 
 if __name__ == "__main__":

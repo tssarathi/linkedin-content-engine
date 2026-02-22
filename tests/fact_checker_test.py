@@ -1,11 +1,10 @@
 import asyncio
-import pprint as pp
 
 from research_agent.agents.fact_checker_agent import fact_checker_agent
 from research_agent.state import ResearchState
 
 
-async def main() -> None:
+async def test_fact_checker() -> None:
     state: ResearchState = {
         "request": "AI agents and multi-agent systems using LangGraph",
         "NR_news_findings": {
@@ -56,7 +55,17 @@ async def main() -> None:
     }
 
     results = await fact_checker_agent(state)
-    pp.pprint(results)
+
+    fc = results.get("FC_fact_check_results")
+    assert fc is not None, "FC_fact_check_results should not be None"
+    assert len(fc["claim_verifications"]) >= 1, "should have at least 1 claim verification"
+    assert fc["summary"], "summary should not be empty"
+    print("PASS: Fact Checker")
+
+
+async def main() -> None:
+    await test_fact_checker()
+    print("ALL TESTS PASSED")
 
 
 if __name__ == "__main__":

@@ -78,6 +78,10 @@ async def github_analyser_agent(state: ResearchState) -> dict:
     )
 
     analysis = result["structured_response"]
-    logger.info("GitHub Analyser Agent Completed")
+    logger.info(
+        "GitHub Analyser Agent Completed — tech_stack: %d items, key_features: %d",
+        len(analysis.tech_stack),
+        len(analysis.key_features),
+    )
 
     return {"GA_project_analysis": analysis.model_dump()}
