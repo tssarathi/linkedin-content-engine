@@ -1,7 +1,7 @@
 import asyncio
 import sys
 
-from pipeline.orchestrator import run_pipeline
+from pipeline import run_pipeline
 
 
 async def main():
