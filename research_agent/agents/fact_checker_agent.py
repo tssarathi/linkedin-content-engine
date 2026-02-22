@@ -13,7 +13,7 @@ from shared.logger import get_logger
 
 logger = get_logger(__name__)
 
-ALLOWED_TOOLS = {"tavily-search"}
+ALLOWED_TOOLS = {"tavily_search"}
 
 
 def _build_claims_message(state: ResearchState) -> str:
@@ -23,15 +23,13 @@ def _build_claims_message(state: ResearchState) -> str:
     news_findings = state.get("NR_news_findings")
     if news_findings:
         sections.append(
-            "## News Researcher Findings\n"
-            f"{json.dumps(news_findings, indent=2)}"
+            f"## News Researcher Findings\n{json.dumps(news_findings, indent=2)}"
         )
 
     trend_data = state.get("TA_trend_data")
     if trend_data:
         sections.append(
-            "## Trend Analyzer Findings\n"
-            f"{json.dumps(trend_data, indent=2)}"
+            f"## Trend Analyzer Findings\n{json.dumps(trend_data, indent=2)}"
         )
 
     return "\n\n".join(sections)
@@ -116,8 +114,6 @@ async def fact_checker_agent(state: ResearchState) -> dict:
         1 for c in fact_check_results.claim_verifications if c.status == "verified"
     )
     total = len(fact_check_results.claim_verifications)
-    logger.info(
-        "Fact Checker Agent Completed. %d/%d claims verified", verified, total
-    )
+    logger.info("Fact Checker Agent Completed. %d/%d claims verified", verified, total)
 
     return {"FC_fact_check_results": fact_check_results.model_dump()}
