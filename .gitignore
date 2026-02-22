@@ -20,6 +20,9 @@ plan_v2.pdf
 # -- logs --
 logs/
 
+# -- Worktrees --
+.worktrees/
+
 # -- Apple --
 .DS_Store
 
