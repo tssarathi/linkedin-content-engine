@@ -18,3 +18,5 @@ pipeline = SequentialAgent(
     description="End-to-end LinkedIn content pipeline: Strategist sets the angle, writing_team drafts and edits, Optimizer produces the final publish-ready post.",
     sub_agents=[strategist_agent, writing_team, optimizer_agent],
 )
+
+root_agent = pipeline
