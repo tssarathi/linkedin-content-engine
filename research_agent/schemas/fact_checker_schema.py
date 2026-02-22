@@ -33,10 +33,8 @@ class FactCheckResults(BaseModel):
     claim_verifications: list[ClaimVerification] = Field(
         description="Verification results for each factual claim extracted from the research findings"
     )
-    search_queries_used: list[str] = Field(
-        description="The search queries used during the fact-checking process"
-    )
     summary: str = Field(
         description="Brief overall summary of the fact-checking results, "
         "noting how many claims were verified, unverified, and any concerns"
     )
+    search_queries_used: list[str] | None = None

@@ -57,6 +57,7 @@ async def news_researcher_agent(state: ResearchState) -> dict:
     )
 
     findings = result["structured_response"]
+    logger.debug("Search queries used: %s", findings.search_queries_used)
     logger.info(
         "News Researcher Agent Completed. Found %d articles",
         len(findings.news_items),

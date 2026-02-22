@@ -39,14 +39,6 @@ class ResearchBrief(BaseModel):
         description="Verified facts, statistics, and examples that back up the key points. "
         "Prioritize verified evidence over unverified claims"
     )
-    post_type: str = Field(
-        description="The content type inherited from the Supervisor "
-        "(e.g., 'project_showcase', 'ai_news', 'hot_take')"
-    )
-    recommended_hashtags: list[str] = Field(
-        description="5-8 hashtags curated from trend analysis, "
-        "mixing broad reach (#AI) with niche targeting (#LangGraph)"
-    )
     content_style_suggestion: str = Field(
         description="A specific content format recommendation based on what is performing "
         "well on LinkedIn right now (e.g., 'Build-in-public narrative with a "
@@ -61,7 +53,6 @@ class ResearchBrief(BaseModel):
         "(e.g., 'Senior engineers evaluating agent frameworks' not just 'developers')"
     )
     brief_summary: str = Field(
-        description="2-3 sentence executive summary of the entire brief. "
-        "A reader should understand the angle, key evidence, and recommended "
-        "approach from this summary alone"
+        description="A concise 2-3 sentence summary of the research brief for human-in-the-loop review. "
+        "Captures the narrative angle, key insight, and intended audience at a glance"
     )

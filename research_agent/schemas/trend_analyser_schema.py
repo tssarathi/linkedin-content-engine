@@ -30,6 +30,4 @@ class TrendData(BaseModel):
         description="A paragraph summarizing what type of content is getting high engagement "
         "in this topic area and why"
     )
-    search_queries_used: list[str] = Field(
-        description="The search queries that were used to discover these trends"
-    )
+    search_queries_used: list[str] | None = None

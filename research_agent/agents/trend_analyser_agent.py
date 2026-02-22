@@ -82,6 +82,7 @@ async def trend_analyser_agent(state: ResearchState) -> dict:
     )
 
     trend_data = result["structured_response"]
+    logger.debug("Search queries used: %s", trend_data.search_queries_used)
     logger.info(
         "Trend Analyser Agent Completed. Found %d trending topics",
         len(trend_data.trending_topics),

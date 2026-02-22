@@ -28,17 +28,20 @@ def _build_research_context(state: ResearchState) -> str:
 
     news_findings = state.get("NR_news_findings")
     if news_findings:
+        filtered = {k: v for k, v in news_findings.items() if k != "search_queries_used"}
         sections.append(
-            f"## News Researcher Findings\n{json.dumps(news_findings, indent=2)}"
+            f"## News Researcher Findings\n{json.dumps(filtered, indent=2)}"
         )
 
     trend_data = state.get("TA_trend_data")
     if trend_data:
-        sections.append(f"## Trend Analyzer Data\n{json.dumps(trend_data, indent=2)}")
+        filtered = {k: v for k, v in trend_data.items() if k != "search_queries_used"}
+        sections.append(f"## Trend Analyzer Data\n{json.dumps(filtered, indent=2)}")
 
     fact_check = state.get("FC_fact_check_results")
     if fact_check:
-        sections.append(f"## Fact-Check Results\n{json.dumps(fact_check, indent=2)}")
+        filtered = {k: v for k, v in fact_check.items() if k != "search_queries_used"}
+        sections.append(f"## Fact-Check Results\n{json.dumps(filtered, indent=2)}")
 
     return "\n\n".join(sections)
 

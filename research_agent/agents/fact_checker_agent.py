@@ -103,6 +103,7 @@ async def fact_checker_agent(state: ResearchState) -> dict:
     )
 
     fact_check_results = result["structured_response"]
+    logger.debug("Search queries used: %s", fact_check_results.search_queries_used)
     verified = sum(
         1 for c in fact_check_results.claim_verifications if c.status == "verified"
     )

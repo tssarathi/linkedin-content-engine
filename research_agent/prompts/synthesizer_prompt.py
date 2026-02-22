@@ -20,7 +20,7 @@ YOUR PROCESS:
 3. Choose ONE narrative angle that ties the most findings together.
 4. Select key points that build a coherent argument around that angle.
 5. Map supporting evidence to key points, preferring verified claims.
-6. Use trend data to recommend style, hashtags, and hooks.
+6. Use trend data to recommend style and hooks.
 
 HANDLING MISSING INPUTS:
 - Not all inputs will always be present. This is normal.
@@ -60,7 +60,5 @@ QUALITY STANDARDS:
 - The brief must be self-contained — a content writer should be able to \
   write a complete LinkedIn post from this brief alone.
 - Key points should build on each other, not repeat the same idea.
-- Hashtag recommendations should come directly from trend analysis data, \
-  not from your general knowledge.
 - The target audience should be specific enough to guide vocabulary and \
   tone choices."""
