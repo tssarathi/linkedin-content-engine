@@ -13,10 +13,13 @@ logger = get_logger(__name__)
 
 
 async def github_analyser_agent(state: ResearchState) -> dict:
-    logger.info("Github Analyser Agent Started")
+    logger.info("GitHub Analyser Agent Started")
 
     repo_url = state["GA_repo_url"]
-    owner, repo = repo_url.rstrip("/").split("/")[-2:]
+    parts = repo_url.rstrip("/").split("/")
+    if len(parts) < 2 or not all(parts[-2:]):
+        raise ValueError(f"Invalid GitHub repository URL: {repo_url!r}")
+    owner, repo = parts[-2], parts[-1]
 
     logger.info("Analyzing repository: %s/%s", owner, repo)
 
@@ -75,6 +78,6 @@ async def github_analyser_agent(state: ResearchState) -> dict:
     )
 
     analysis = result["structured_response"]
-    logger.info("Github Analyser Agent Completed")
+    logger.info("GitHub Analyser Agent Completed")
 
     return {"GA_project_analysis": analysis.model_dump()}
