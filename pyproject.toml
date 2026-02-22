@@ -20,4 +20,4 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["research_agent*", "shared*"]
+include = ["research_agent*", "content_agent*", "pipeline*", "shared*"]
