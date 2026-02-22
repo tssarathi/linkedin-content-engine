@@ -30,5 +30,4 @@ logs/
 .adk/
 
 # -- Tests --
-test/
 tests/
