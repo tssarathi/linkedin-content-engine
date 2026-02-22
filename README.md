@@ -103,7 +103,7 @@ linkedin-content-engine/
 │   ├── agent.py                   # Root agent (SequentialAgent)
 │   ├── agents/                    # Agent implementations
 │   ├── schemas/                   # Pydantic output schemas
-│   └── instruction/              # Agent instructions
+│   └── instruction/               # Agent instructions
 │
 ├── shared/
 │   ├── config.py                  # Environment variable loader
