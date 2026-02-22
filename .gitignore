@@ -28,3 +28,6 @@ logs/
 
 # -- ADK --
 .adk/
+
+# -- Tests --
+tests/

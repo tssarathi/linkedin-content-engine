@@ -40,6 +40,5 @@ async def run_pipeline(user_input: str) -> str:
         app_name="linkedin_content_engine", user_id="user", session_id=session.id
     )
     linkedin_post = session_state.state.get("linkedin_post")
-    if isinstance(linkedin_post, str):
-        linkedin_post = json.loads(linkedin_post)
+    linkedin_post = json.loads(linkedin_post)
     return linkedin_post["publish_ready_post"]
