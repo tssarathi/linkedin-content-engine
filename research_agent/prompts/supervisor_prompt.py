@@ -11,7 +11,7 @@ search for.
 
 ### 1. BUZZWORDS (consumed by the News Researcher)
 
-The News Researcher uses DuckDuckGo, a KEYWORD search engine (BM25 scoring). \
+The News Researcher uses Google Serper, a KEYWORD search engine (BM25 scoring). \
 It matches exact terms in web pages. Your buzzwords must be terms that would \
 literally appear in news articles and technical blog posts.
 
