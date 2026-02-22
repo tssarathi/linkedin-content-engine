@@ -1,0 +1,11 @@
+from google.adk.agents.llm_agent import Agent
+
+from content_agent.instruction.strategist_instruction import DESCRIPTION, INSTRUCTION
+
+strategist_agent = Agent(
+    name="strategist",
+    model="gemini-2.5-flash-lite",
+    description=DESCRIPTION,
+    instruction=INSTRUCTION,
+    output_key="strategy_document",
+)
