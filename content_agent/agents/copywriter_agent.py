@@ -4,7 +4,7 @@ from content_agent.prompts.copywriter_instruction import DESCRIPTION, INSTRUCTIO
 
 copywriter_agent = Agent(
     name="copywriter",
-    model="gemini-2.5-flash-lite",
+    model="gemini-2.0-flash",
     description=DESCRIPTION,
     instruction=INSTRUCTION,
     output_key="post_draft",
