@@ -10,6 +10,8 @@ from research_agent.schemas.trend_analyser_schema import TrendData
 class ResearchState(TypedDict):
     # -- Orchestrator Input --
     request: str
+
+    # -- GitHub Analyzer Input --
     GA_repo_url: str | None
 
     # -- GitHub Analyzer Output --
