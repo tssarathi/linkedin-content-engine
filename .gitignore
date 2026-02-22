@@ -26,3 +26,5 @@ logs/
 # -- Apple --
 .DS_Store
 
+# -- ADK --
+.adk/
