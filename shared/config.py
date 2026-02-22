@@ -12,6 +12,7 @@ class Config:
 
     # -- News Researcher --
     RA_NR_GROQ_API_KEY = os.getenv("RA_NR_GROQ_API_KEY")
+    RA_NR_SERPER_API_KEY = os.getenv("RA_NR_SERPER_API_KEY")
 
     # -- Trend Analyser --
     RA_TA_GROQ_API_KEY = os.getenv("RA_TA_GROQ_API_KEY")
