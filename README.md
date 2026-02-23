@@ -97,18 +97,19 @@ linkedin-content-engine/
     │   ├── logger.py              # Dual-output logging (DEBUG → file, INFO → console)
     │   └── prompt_parser.py       # Extracts GitHub URLs from user input
     │
-    ├── research_service/
-    │   ├── graph.py               # LangGraph StateGraph definition
-    │   ├── state.py               # ResearchState TypedDict
-    │   ├── agents/                # Agent implementations
-    │   ├── schemas/               # Pydantic output schemas
-    │   └── prompts/               # System prompts
-    │
-    └── content_service/
-        ├── agent.py               # Root agent (SequentialAgent)
-        ├── agents/                # Agent implementations
-        ├── schemas/               # Pydantic output schemas
-        └── prompts/               # Agent instructions
+    └── core/
+        ├── research_service/
+        │   ├── graph.py           # LangGraph StateGraph definition
+        │   ├── state.py           # ResearchState TypedDict
+        │   ├── agents/            # Agent implementations
+        │   ├── schemas/           # Pydantic output schemas
+        │   └── prompts/           # System prompts
+        │
+        └── content_service/
+            ├── agent.py           # Root agent (SequentialAgent)
+            ├── agents/            # Agent implementations
+            ├── schemas/           # Pydantic output schemas
+            └── prompts/           # Agent instructions
 ```
 
 ## Getting Started

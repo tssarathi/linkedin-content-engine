@@ -3,9 +3,9 @@ import json
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 
-from app.research_service.prompts.supervisor_prompt import SYSTEM_PROMPT
-from app.research_service.schemas.supervisor_schema import SupervisorOutput
-from app.research_service.state import ResearchState
+from app.core.research_service.prompts.supervisor_prompt import SYSTEM_PROMPT
+from app.core.research_service.schemas.supervisor_schema import SupervisorOutput
+from app.core.research_service.state import ResearchState
 from app.config.config import config
 from app.utilities.logger import get_logger
 

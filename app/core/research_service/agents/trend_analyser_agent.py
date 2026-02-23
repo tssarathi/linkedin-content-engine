@@ -3,9 +3,9 @@ from langchain.agents.structured_output import ToolStrategy
 from langchain_openai import ChatOpenAI
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
-from app.research_service.prompts.trend_analyser_prompt import SYSTEM_PROMPT
-from app.research_service.schemas.trend_analyser_schema import TrendData
-from app.research_service.state import ResearchState
+from app.core.research_service.prompts.trend_analyser_prompt import SYSTEM_PROMPT
+from app.core.research_service.schemas.trend_analyser_schema import TrendData
+from app.core.research_service.state import ResearchState
 from app.config.config import config
 from app.utilities.logger import get_logger
 

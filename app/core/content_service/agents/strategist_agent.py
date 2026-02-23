@@ -1,7 +1,7 @@
 from google.adk.agents import Agent
 
-from app.content_service.prompts.strategist_prompt import DESCRIPTION, INSTRUCTION
-from app.content_service.schemas.strategy_schema import StrategyDocument
+from app.core.content_service.prompts.strategist_prompt import DESCRIPTION, INSTRUCTION
+from app.core.content_service.schemas.strategy_schema import StrategyDocument
 
 strategist_agent = Agent(
     name="strategist",
