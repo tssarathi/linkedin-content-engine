@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SONAR_PROJECT_KEY = 'linkedin-content-engine'
+        SONAR_PROJECT_KEY = 'las-sonarqube-project'
         SONAR_SCANNER_HOME = tool 'lcs-sonarqube-tool'
         // AWS_REGION = 'us-east-1'
         // ECR_REPO = 'my-repo'
@@ -21,7 +21,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withCredentials([string(credentialsId: 'lcs-sonarqube-credentials', variable: 'SONAR_TOKEN')]) {
+                withCredentials([string(credentialsId: '83405f80-5e66-4597-8806-f53730a67f8e', variable: 'SONAR_TOKEN')]) {
                     withSonarQubeEnv('lcs-sonarqube-env') {
                         sh """
                             ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
