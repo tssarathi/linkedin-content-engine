@@ -15,7 +15,7 @@ def _escalate_on_approval(callback_context: CallbackContext) -> None:
 
 editor_agent = Agent(
     name="editor",
-    model="gemini-2.0-flash",
+    model="gemini-2.5-flash",
     description=DESCRIPTION,
     instruction=INSTRUCTION,
     output_key="editor_review",
