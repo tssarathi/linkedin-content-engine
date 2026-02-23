@@ -64,52 +64,50 @@ User Prompt (+ optional GitHub URL)
 
 | Agent | Role | Tools |
 |-------|------|-------|
-| **GitHub Analyser** | Extracts tech stack, features, and summary from a GitHub repo | GitHub MCP |
-| **Supervisor** | Determines post type, extracts buzzwords, creates project context | Groq LLM |
+| **GitHub Analyser** | Extracts tech stack, features, and summary from a GitHub repo | GitHub MCP (`get_file_contents`, `list_commits`) |
+| **Supervisor** | Determines post type, extracts buzzwords for keyword search and project context for semantic search | GPT-4o-mini |
 | **News Researcher** | Finds recent news articles related to the topic (last 90 days) | Google Serper |
-| **Trend Analyser** | Discovers trending topics and discussions via semantic search | Exa MCP |
-| **Fact Checker** | Verifies claims from the research agents | Tavily MCP |
-| **Synthesizer** | Combines all findings into a structured research brief | Groq LLM |
+| **Trend Analyser** | Discovers trending topics and discussions via semantic search | Exa MCP (`web_search_exa`) |
+| **Fact Checker** | Verifies claims from the research agents against independent sources | Tavily MCP (`tavily_search`) |
+| **Synthesizer** | Combines all findings into a structured research brief | GPT-4o-mini |
 
 ## Content Agents
 
 | Agent | Role |
 |-------|------|
 | **Strategist** | Analyzes the research brief and produces a strategy document (post type, hook style, CTA, tone) |
-| **Copywriter** | Writes the initial draft based on the strategy |
-| **Editor** | Scores the draft on hook quality, authenticity, and value — approves or requests revision |
-| **Optimizer** | Produces the final post with hook variants, hashtags, and formatted output |
+| **Copywriter** | Writes the initial draft based on the strategy (under 1,500 chars, mobile-first formatting) |
+| **Editor** | Scores the draft on hook strength, authenticity, and value density (1–10 rubric) — approves or requests revision |
+| **Optimizer** | Produces the final post with 3 hook variants, hashtags, and a copy-paste ready output |
 
 ## Project Structure
 
 ```
 linkedin-content-engine/
-├── main.py                        # Entry point
-├── pyproject.toml                 # Project metadata & dependencies
-├── requirements.txt               # Dependency list
+├── main.py                        # CLI entry point
+├── pyproject.toml                 # Project metadata & dependencies (v2.0.0)
+├── requirements.txt               # Flat dependency list
 │
 ├── pipeline/
-│   ├── orchestrator.py            # Runs research → content pipeline
-│   └── prompt_parser.py           # Extracts GitHub URLs from user input
+│   └── orchestrator.py            # Connects research → content pipeline
 │
 ├── research_agent/
-│   ├── graph.py                   # LangGraph state machine
-│   ├── state.py                   # ResearchState definition
+│   ├── graph.py                   # LangGraph StateGraph definition
+│   ├── state.py                   # ResearchState TypedDict
 │   ├── agents/                    # Agent implementations
 │   ├── schemas/                   # Pydantic output schemas
 │   └── prompts/                   # System prompts
 │
 ├── content_agent/
-│   ├── agent.py                   # Root agent (SequentialAgent)
+│   ├── pipeline.py                # Root agent (SequentialAgent)
 │   ├── agents/                    # Agent implementations
 │   ├── schemas/                   # Pydantic output schemas
-│   └── instruction/               # Agent instructions
+│   └── prompts/                   # Agent instructions
 │
-├── shared/
-│   ├── config.py                  # Environment variable loader
-│   └── logger.py                  # Logging configuration
-│
-└── tests/                         # Test suite
+└── shared/
+    ├── config.py                  # Centralised environment variable loader
+    ├── logger.py                  # Dual-output logging (DEBUG → file, INFO → console)
+    └── prompt_parser.py           # Extracts GitHub URLs from user input
 ```
 
 ## Getting Started
@@ -123,7 +121,7 @@ linkedin-content-engine/
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/linkedin-content-engine.git
+git clone https://github.com/sarathisarathi/linkedin-content-engine.git
 cd linkedin-content-engine
 
 python -m venv .venv
@@ -135,33 +133,24 @@ pip install -e .
 
 ### Environment Variables
 
-Create a `.env` file in the project root with the following keys:
+Copy `.env.example` to `.env` and fill in the required keys:
 
 ```env
-# GitHub Analyser
-RA_GA_GROQ_API_KEY=your_groq_api_key
-RA_GA_GITHUB_API_KEY=your_github_api_key
+# LLM API Keys
+OPENAI_API_KEY=              # Used by all research agents (GPT-4o-mini)
+GOOGLE_API_KEY=              # Used by all content agents (Gemini 2.5 Flash Lite)
 
-# News Researcher
-RA_NR_GROQ_API_KEY=your_groq_api_key
-RA_NR_SERPER_API_KEY=your_serper_api_key
+# Research Agent Tool Keys
+RA_GA_GITHUB_API_KEY=        # GitHub Personal Access Token
+RA_NR_SERPER_API_KEY=        # Google Serper API key
+RA_TA_EXA_API_KEY=           # Exa API key
+RA_FC_TAVILY_API_KEY=        # Tavily API key
 
-# Trend Analyser
-RA_TA_GROQ_API_KEY=your_groq_api_key
-RA_TA_EXA_API_KEY=your_exa_api_key
-
-# Fact Checker
-RA_FC_GROQ_API_KEY=your_groq_api_key
-RA_FC_TAVILY_API_KEY=your_tavily_api_key
-
-# Synthesizer
-RA_SY_GROQ_API_KEY=your_groq_api_key
-
-# Supervisor
-RA_SU_GROQ_API_KEY=your_groq_api_key
+# Observability (optional — auto-read by Langfuse SDK)
+LANGFUSE_SECRET_KEY=
+LANGFUSE_PUBLIC_KEY=
+LANGFUSE_BASE_URL=https://cloud.langfuse.com
 ```
-
-> You can use the same Groq API key for all `*_GROQ_API_KEY` variables, or separate keys for rate-limit isolation.
 
 ### Usage
 
@@ -182,10 +171,12 @@ python main.py
 |-------|-----------|
 | Research orchestration | [LangGraph](https://github.com/langchain-ai/langgraph) |
 | Content generation | [Google ADK](https://google.github.io/adk-docs/) |
-| LLM provider | [Groq](https://groq.com/) |
+| Research LLM | [OpenAI GPT-4o-mini](https://platform.openai.com/) |
+| Content LLM | [Google Gemini 2.5 Flash Lite](https://ai.google.dev/) |
 | Data validation | [Pydantic](https://docs.pydantic.dev/) |
-| External search | Google Serper, Exa, Tavily, DuckDuckGo |
-| Tool integration | [MCP](https://modelcontextprotocol.io/) (GitHub, Tavily, Exa servers) |
+| External search | Google Serper, Exa, Tavily |
+| Tool integration | [MCP](https://modelcontextprotocol.io/) (GitHub, Tavily, Exa servers via `npx`) |
+| Observability | [Langfuse](https://langfuse.com/) + [OpenInference](https://github.com/Arize-ai/openinference) |
 
 ## License
 
