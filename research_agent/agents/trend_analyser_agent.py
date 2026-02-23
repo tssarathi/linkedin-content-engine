@@ -40,13 +40,6 @@ async def trend_analyser_agent(state: ResearchState) -> dict:
             f"Expected {ALLOWED_TOOLS}, got {[t.name for t in all_tools]}"
         )
 
-    logger.debug(
-        "Using %d/%d Exa MCP tools: %s",
-        len(tools),
-        len(all_tools),
-        [t.name for t in tools],
-    )
-
     model = ChatOpenAI(
         model="gpt-4o-mini",
         temperature=0,
@@ -87,7 +80,6 @@ async def trend_analyser_agent(state: ResearchState) -> dict:
     )
 
     trend_data = result["structured_response"]
-    logger.debug("Search queries used: %s", trend_data.search_queries_used)
     logger.info(
         "Trend Analyser Agent Completed. Found %d trending topics",
         len(trend_data.trending_topics),

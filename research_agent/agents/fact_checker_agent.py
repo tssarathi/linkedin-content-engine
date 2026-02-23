@@ -40,16 +40,6 @@ async def fact_checker_agent(state: ResearchState) -> dict:
 
     claims_message = _build_claims_message(state)
 
-    if not claims_message:
-        logger.warning("No research findings to verify — skipping fact check")
-        return {
-            "FC_fact_check_results": FactCheckResults(
-                claim_verifications=[],
-                search_queries_used=[],
-                summary="No research findings were provided to verify.",
-            ).model_dump()
-        }
-
     mcp_servers = {
         "tavily": {
             "command": "npx",
@@ -69,13 +59,6 @@ async def fact_checker_agent(state: ResearchState) -> dict:
             f"Tavily MCP server returned no usable tools. "
             f"Expected {ALLOWED_TOOLS}, got {[t.name for t in all_tools]}"
         )
-
-    logger.debug(
-        "Using %d/%d Tavily MCP tools: %s",
-        len(tools),
-        len(all_tools),
-        [t.name for t in tools],
-    )
 
     model = ChatOpenAI(
         model="gpt-4o-mini",
@@ -108,7 +91,6 @@ async def fact_checker_agent(state: ResearchState) -> dict:
     )
 
     fact_check_results = result["structured_response"]
-    logger.debug("Search queries used: %s", fact_check_results.search_queries_used)
     verified = sum(
         1 for c in fact_check_results.claim_verifications if c.status == "verified"
     )

@@ -1,5 +1,4 @@
-from google.adk.agents.loop_agent import LoopAgent
-from google.adk.agents.sequential_agent import SequentialAgent
+from google.adk.agents import LoopAgent, SequentialAgent
 
 from content_agent.agents.copywriter_agent import copywriter_agent
 from content_agent.agents.editor_agent import editor_agent

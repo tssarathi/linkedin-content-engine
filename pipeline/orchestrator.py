@@ -3,16 +3,24 @@ import json
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
+from langfuse.langchain import CallbackHandler as LangfuseCallbackHandler
+from openinference.instrumentation.google_adk import GoogleADKInstrumentor
 
 from content_agent.pipeline import root_agent
 from shared.prompt_parser import parse_prompt
 from research_agent.graph import app
 
+GoogleADKInstrumentor().instrument()
+
 
 async def run_pipeline(user_input: str) -> str:
     request, github_url = parse_prompt(user_input)
 
-    state = await app.ainvoke({"request": request, "GA_repo_url": github_url})
+    langfuse_handler = LangfuseCallbackHandler()
+    state = await app.ainvoke(
+        {"request": request, "GA_repo_url": github_url},
+        config={"callbacks": [langfuse_handler]},
+    )
 
     research_brief = state["research_brief"]
     research_brief_json = json.dumps(research_brief)

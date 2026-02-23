@@ -29,8 +29,6 @@ async def news_researcher_agent(state: ResearchState) -> dict:
     )
     tools = [search]
 
-    logger.debug("Tools: %s", [t.name for t in tools])
-
     model = ChatOpenAI(
         model="gpt-4o-mini",
         temperature=0,
@@ -65,7 +63,6 @@ async def news_researcher_agent(state: ResearchState) -> dict:
     )
 
     findings = result["structured_response"]
-    logger.debug("Search queries used: %s", findings.search_queries_used)
     logger.info(
         "News Researcher Agent Completed. Found %d articles",
         len(findings.news_items),

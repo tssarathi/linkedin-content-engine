@@ -14,9 +14,10 @@ dependencies = [
     "langchain",
     "langchain-community",
     "langchain-mcp-adapters",
-    "ddgs",
     "langchain-openai",
     "google-adk",
+    "langfuse",
+    "openinference-instrumentation-google-adk",
 ]
 
 [tool.setuptools.packages.find]

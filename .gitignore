@@ -13,6 +13,9 @@
 __pycache__/
 *.egg-info/
 
+# -- Package Manager --
+uv.lock
+
 # -- Plan --
 plan.pdf
 plan_v2.pdf

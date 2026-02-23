@@ -47,13 +47,6 @@ async def github_analyser_agent(state: ResearchState) -> dict:
             f"Expected {ALLOWED_TOOLS}, got {[t.name for t in all_tools]}"
         )
 
-    logger.debug(
-        "Using %d/%d GitHub MCP tools: %s",
-        len(tools),
-        len(all_tools),
-        [t.name for t in tools],
-    )
-
     model = ChatOpenAI(
         model="gpt-4o-mini",
         temperature=0,
