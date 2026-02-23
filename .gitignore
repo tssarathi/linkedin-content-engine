@@ -37,3 +37,6 @@ tests/
 
 # -- Docs --
 docs/
+
+# -- Interactive Demo --
+interactive/
