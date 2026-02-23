@@ -84,20 +84,18 @@ User Prompt (+ optional GitHub URL)
 
 ```
 linkedin-content-engine/
-├── main.py                        # CLI entry point
 ├── pyproject.toml                 # Project metadata & dependencies (v2.0.0)
 ├── requirements.txt               # Flat dependency list
 │
 └── app/
+    ├── main.py                    # CLI entry point & pipeline orchestration
+    │
     ├── config/
     │   └── config.py              # Centralised environment variable loader
     │
     ├── utilities/
     │   ├── logger.py              # Dual-output logging (DEBUG → file, INFO → console)
     │   └── prompt_parser.py       # Extracts GitHub URLs from user input
-    │
-    ├── pipeline/
-    │   └── orchestrator.py        # Connects research → content pipeline
     │
     ├── research_agent/
     │   ├── graph.py               # LangGraph StateGraph definition
@@ -107,7 +105,7 @@ linkedin-content-engine/
     │   └── prompts/               # System prompts
     │
     └── content_agent/
-        ├── pipeline.py            # Root agent (SequentialAgent)
+        ├── agent.py               # Root agent (SequentialAgent)
         ├── agents/                # Agent implementations
         ├── schemas/               # Pydantic output schemas
         └── prompts/               # Agent instructions
@@ -159,13 +157,13 @@ LANGFUSE_BASE_URL=https://cloud.langfuse.com
 
 ```bash
 # With a topic prompt
-python main.py "Write a post about the rise of AI agents in developer tooling"
+python -m app.main "Write a post about the rise of AI agents in developer tooling"
 
 # With a GitHub repo
-python main.py "Showcase this project https://github.com/owner/repo"
+python -m app.main "Showcase this project https://github.com/owner/repo"
 
 # Interactive mode
-python main.py
+python -m app.main
 ```
 
 ## Tech Stack
