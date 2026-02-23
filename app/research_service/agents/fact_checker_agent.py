@@ -44,7 +44,7 @@ async def fact_checker_agent(state: ResearchState) -> dict:
         "tavily": {
             "command": "npx",
             "args": ["-y", "tavily-mcp@latest"],
-            "env": {"TAVILY_API_KEY": config.RA_FC_TAVILY_API_KEY},
+            "env": {"TAVILY_API_KEY": config.RS_FC_TAVILY_API_KEY},
             "transport": "stdio",
         }
     }

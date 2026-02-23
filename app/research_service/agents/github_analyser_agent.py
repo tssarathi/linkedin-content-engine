@@ -26,7 +26,7 @@ async def github_analyser_agent(state: ResearchState) -> dict:
             "command": "npx",
             "args": ["-y", "@modelcontextprotocol/server-github"],
             "env": {
-                "GITHUB_PERSONAL_ACCESS_TOKEN": config.RA_GA_GITHUB_API_KEY,
+                "GITHUB_PERSONAL_ACCESS_TOKEN": config.RS_GA_GITHUB_API_KEY,
             },
             "transport": "stdio",
         }

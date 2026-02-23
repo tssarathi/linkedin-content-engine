@@ -60,7 +60,7 @@ User Prompt (+ optional GitHub URL)
               Publish-Ready LinkedIn Post
 ```
 
-## Research Agents
+## Research Service
 
 | Agent | Role | Tools |
 |-------|------|-------|
@@ -71,7 +71,7 @@ User Prompt (+ optional GitHub URL)
 | **Fact Checker** | Verifies claims from the research agents against independent sources | Tavily MCP (`tavily_search`) |
 | **Synthesizer** | Combines all findings into a structured research brief | GPT-4o-mini |
 
-## Content Agents
+## Content Service
 
 | Agent | Role |
 |-------|------|
@@ -142,10 +142,10 @@ OPENAI_API_KEY=              # Used by all research agents (GPT-4o-mini)
 GOOGLE_API_KEY=              # Used by all content agents (Gemini 2.5 Flash Lite)
 
 # Research Service Tool Keys
-RA_GA_GITHUB_API_KEY=        # GitHub Personal Access Token
-RA_NR_SERPER_API_KEY=        # Google Serper API key
-RA_TA_EXA_API_KEY=           # Exa API key
-RA_FC_TAVILY_API_KEY=        # Tavily API key
+RS_GA_GITHUB_API_KEY=        # GitHub Personal Access Token
+RS_NR_SERPER_API_KEY=        # Google Serper API key
+RS_TA_EXA_API_KEY=           # Exa API key
+RS_FC_TAVILY_API_KEY=        # Tavily API key
 
 # Observability (optional — auto-read by Langfuse SDK)
 LANGFUSE_SECRET_KEY=

@@ -22,7 +22,7 @@ async def news_researcher_agent(state: ResearchState) -> dict:
 
     search = GoogleSerperRun(
         api_wrapper=GoogleSerperAPIWrapper(
-            serper_api_key=config.RA_NR_SERPER_API_KEY,
+            serper_api_key=config.RS_NR_SERPER_API_KEY,
             type="news",
             k=5,
         )

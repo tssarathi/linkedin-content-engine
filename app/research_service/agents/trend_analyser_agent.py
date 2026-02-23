@@ -24,7 +24,7 @@ async def trend_analyser_agent(state: ResearchState) -> dict:
         "exa": {
             "command": "npx",
             "args": ["-y", "exa-mcp-server"],
-            "env": {"EXA_API_KEY": config.RA_TA_EXA_API_KEY},
+            "env": {"EXA_API_KEY": config.RS_TA_EXA_API_KEY},
             "transport": "stdio",
         }
     }
