@@ -1,8 +1,8 @@
 from google.adk.agents import Agent
 from google.adk.agents.callback_context import CallbackContext
 
-from content_agent.prompts.editor_instruction import DESCRIPTION, INSTRUCTION
-from content_agent.schemas.editor_schema import EditorReview
+from app.content_agent.prompts.editor_instruction import DESCRIPTION, INSTRUCTION
+from app.content_agent.schemas.editor_schema import EditorReview
 
 
 def _escalate_on_approval(callback_context: CallbackContext) -> None:

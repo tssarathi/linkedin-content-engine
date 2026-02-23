@@ -1,3 +1,3 @@
-from content_agent.pipeline import root_agent
+from app.content_agent.agent import root_agent
 
 __all__ = ["root_agent"]

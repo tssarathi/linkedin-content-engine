@@ -88,26 +88,29 @@ linkedin-content-engine/
 ├── pyproject.toml                 # Project metadata & dependencies (v2.0.0)
 ├── requirements.txt               # Flat dependency list
 │
-├── pipeline/
-│   └── orchestrator.py            # Connects research → content pipeline
-│
-├── research_agent/
-│   ├── graph.py                   # LangGraph StateGraph definition
-│   ├── state.py                   # ResearchState TypedDict
-│   ├── agents/                    # Agent implementations
-│   ├── schemas/                   # Pydantic output schemas
-│   └── prompts/                   # System prompts
-│
-├── content_agent/
-│   ├── pipeline.py                # Root agent (SequentialAgent)
-│   ├── agents/                    # Agent implementations
-│   ├── schemas/                   # Pydantic output schemas
-│   └── prompts/                   # Agent instructions
-│
-└── shared/
-    ├── config.py                  # Centralised environment variable loader
-    ├── logger.py                  # Dual-output logging (DEBUG → file, INFO → console)
-    └── prompt_parser.py           # Extracts GitHub URLs from user input
+└── app/
+    ├── config/
+    │   └── config.py              # Centralised environment variable loader
+    │
+    ├── utilities/
+    │   ├── logger.py              # Dual-output logging (DEBUG → file, INFO → console)
+    │   └── prompt_parser.py       # Extracts GitHub URLs from user input
+    │
+    ├── pipeline/
+    │   └── orchestrator.py        # Connects research → content pipeline
+    │
+    ├── research_agent/
+    │   ├── graph.py               # LangGraph StateGraph definition
+    │   ├── state.py               # ResearchState TypedDict
+    │   ├── agents/                # Agent implementations
+    │   ├── schemas/               # Pydantic output schemas
+    │   └── prompts/               # System prompts
+    │
+    └── content_agent/
+        ├── pipeline.py            # Root agent (SequentialAgent)
+        ├── agents/                # Agent implementations
+        ├── schemas/               # Pydantic output schemas
+        └── prompts/               # Agent instructions
 ```
 
 ## Getting Started

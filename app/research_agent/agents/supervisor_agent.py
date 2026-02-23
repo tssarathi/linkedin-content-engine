@@ -3,11 +3,11 @@ import json
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 
-from research_agent.prompts.supervisor_prompt import SYSTEM_PROMPT
-from research_agent.schemas.supervisor_schema import SupervisorOutput
-from research_agent.state import ResearchState
-from shared.config import config
-from shared.logger import get_logger
+from app.research_agent.prompts.supervisor_prompt import SYSTEM_PROMPT
+from app.research_agent.schemas.supervisor_schema import SupervisorOutput
+from app.research_agent.state import ResearchState
+from app.config.config import config
+from app.utilities.logger import get_logger
 
 logger = get_logger(__name__)
 

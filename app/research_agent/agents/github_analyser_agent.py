@@ -3,11 +3,11 @@ from langchain.agents.structured_output import ToolStrategy
 from langchain_openai import ChatOpenAI
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
-from research_agent.prompts.github_analyser_prompt import SYSTEM_PROMPT
-from research_agent.schemas.github_analyser_schema import ProjectAnalysis
-from research_agent.state import ResearchState
-from shared.config import config
-from shared.logger import get_logger
+from app.research_agent.prompts.github_analyser_prompt import SYSTEM_PROMPT
+from app.research_agent.schemas.github_analyser_schema import ProjectAnalysis
+from app.research_agent.state import ResearchState
+from app.config.config import config
+from app.utilities.logger import get_logger
 
 logger = get_logger(__name__)
 
