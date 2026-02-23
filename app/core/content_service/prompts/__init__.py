@@ -1,16 +1,16 @@
-from app.content_service.prompts.strategist_prompt import (
+from app.core.content_service.prompts.strategist_prompt import (
     DESCRIPTION as STRATEGIST_DESCRIPTION,
     INSTRUCTION as STRATEGIST_INSTRUCTION,
 )
-from app.content_service.prompts.copywriter_prompt import (
+from app.core.content_service.prompts.copywriter_prompt import (
     DESCRIPTION as COPYWRITER_DESCRIPTION,
     INSTRUCTION as COPYWRITER_INSTRUCTION,
 )
-from app.content_service.prompts.editor_prompt import (
+from app.core.content_service.prompts.editor_prompt import (
     DESCRIPTION as EDITOR_DESCRIPTION,
     INSTRUCTION as EDITOR_INSTRUCTION,
 )
-from app.content_service.prompts.optimizer_prompt import (
+from app.core.content_service.prompts.optimizer_prompt import (
     DESCRIPTION as OPTIMIZER_DESCRIPTION,
     INSTRUCTION as OPTIMIZER_INSTRUCTION,
 )

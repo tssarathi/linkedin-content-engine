@@ -1,6 +1,6 @@
 from google.adk.agents import Agent
 
-from app.content_service.prompts.copywriter_prompt import DESCRIPTION, INSTRUCTION
+from app.core.content_service.prompts.copywriter_prompt import DESCRIPTION, INSTRUCTION
 
 copywriter_agent = Agent(
     name="copywriter",
