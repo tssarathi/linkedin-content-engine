@@ -34,4 +34,6 @@ logs/
 
 # -- Tests --
 tests/
-docs/plans/2026-02-23-autonomous-agent-implementation.md
+
+# -- Docs --
+docs/
