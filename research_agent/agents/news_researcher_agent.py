@@ -2,7 +2,7 @@ from langchain.agents import create_agent
 from langchain.agents.structured_output import ToolStrategy
 from langchain_community.tools import GoogleSerperRun
 from langchain_community.utilities import GoogleSerperAPIWrapper
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 
 from research_agent.prompts.news_researcher_prompt import SYSTEM_PROMPT
 from research_agent.schemas.news_researcher_schema import NewsFindings
@@ -31,11 +31,10 @@ async def news_researcher_agent(state: ResearchState) -> dict:
 
     logger.debug("Tools: %s", [t.name for t in tools])
 
-    model = ChatGroq(
-        model="llama-3.3-70b-versatile",
+    model = ChatOpenAI(
+        model="gpt-4o-mini",
         temperature=0,
-        api_key=config.RA_NR_GROQ_API_KEY,
-        max_tokens=4096,
+        api_key=config.OPENAI_API_KEY,
     )
 
     agent = create_agent(

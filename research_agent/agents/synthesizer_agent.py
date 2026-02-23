@@ -1,7 +1,7 @@
 import json
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 
 from research_agent.prompts.synthesizer_prompt import SYSTEM_PROMPT
 from research_agent.schemas.research_brief_schema import ResearchBrief
@@ -51,11 +51,10 @@ async def synthesizer_agent(state: ResearchState) -> dict:
 
     research_context = _build_research_context(state)
 
-    model = ChatGroq(
-        model="llama-3.3-70b-versatile",
+    model = ChatOpenAI(
+        model="gpt-4o-mini",
         temperature=0.3,
-        api_key=config.RA_SY_GROQ_API_KEY,
-        max_tokens=4096,
+        api_key=config.OPENAI_API_KEY,
     )
 
     structured_model = model.with_structured_output(ResearchBrief)

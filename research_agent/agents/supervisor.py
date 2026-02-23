@@ -1,7 +1,7 @@
 import json
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 
 from research_agent.prompts.supervisor_prompt import SYSTEM_PROMPT
 from research_agent.schemas.supervisor_schema import SupervisorOutput
@@ -40,11 +40,10 @@ async def supervisor_agent(state: ResearchState) -> dict:
 
     context = _build_supervisor_context(state)
 
-    model = ChatGroq(
-        model="llama-3.3-70b-versatile",
+    model = ChatOpenAI(
+        model="gpt-4o-mini",
         temperature=0,
-        api_key=config.RA_SU_GROQ_API_KEY,
-        max_tokens=2048,
+        api_key=config.OPENAI_API_KEY,
     )
 
     structured_model = model.with_structured_output(SupervisorOutput)

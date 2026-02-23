@@ -1,6 +1,6 @@
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ToolStrategy
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
 from research_agent.prompts.github_analyser_prompt import SYSTEM_PROMPT
@@ -54,11 +54,10 @@ async def github_analyser_agent(state: ResearchState) -> dict:
         [t.name for t in tools],
     )
 
-    model = ChatGroq(
-        model="llama-3.3-70b-versatile",
+    model = ChatOpenAI(
+        model="gpt-4o-mini",
         temperature=0,
-        api_key=config.RA_GA_GROQ_API_KEY,
-        max_tokens=4096,
+        api_key=config.OPENAI_API_KEY,
     )
 
     agent = create_agent(
