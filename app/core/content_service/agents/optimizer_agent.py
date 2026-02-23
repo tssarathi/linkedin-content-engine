@@ -5,7 +5,7 @@ from app.core.content_service.schemas.linkedin_post_schema import LinkedInPost
 
 optimizer_agent = Agent(
     name="optimizer",
-    model="gemini-3-flash-preview",
+    model="gemini-2.5-flash-lite",
     description=DESCRIPTION,
     instruction=INSTRUCTION,
     output_key="linkedin_post",
