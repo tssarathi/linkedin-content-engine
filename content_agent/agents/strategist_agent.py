@@ -5,7 +5,7 @@ from content_agent.schemas.strategy_schema import StrategyDocument
 
 strategist_agent = Agent(
     name="strategist",
-    model="gemini-2.5-flash",
+    model="gemini-2.0-flash",
     description=DESCRIPTION,
     instruction=INSTRUCTION,
     output_key="strategy_document",
