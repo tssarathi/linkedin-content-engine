@@ -1,9 +1,9 @@
 from google.adk.agents import LoopAgent, SequentialAgent
 
-from app.content_agent.agents.copywriter_agent import copywriter_agent
-from app.content_agent.agents.editor_agent import editor_agent
-from app.content_agent.agents.optimizer_agent import optimizer_agent
-from app.content_agent.agents.strategist_agent import strategist_agent
+from app.content_service.agents.copywriter_agent import copywriter_agent
+from app.content_service.agents.editor_agent import editor_agent
+from app.content_service.agents.optimizer_agent import optimizer_agent
+from app.content_service.agents.strategist_agent import strategist_agent
 
 writing_team = LoopAgent(
     name="writing_team",

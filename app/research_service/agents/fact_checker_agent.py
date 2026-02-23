@@ -5,9 +5,9 @@ from langchain.agents.structured_output import ToolStrategy
 from langchain_openai import ChatOpenAI
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
-from app.research_agent.prompts.fact_checker_prompt import SYSTEM_PROMPT
-from app.research_agent.schemas.fact_checker_schema import FactCheckResults
-from app.research_agent.state import ResearchState
+from app.research_service.prompts.fact_checker_prompt import SYSTEM_PROMPT
+from app.research_service.schemas.fact_checker_schema import FactCheckResults
+from app.research_service.state import ResearchState
 from app.config.config import config
 from app.utilities.logger import get_logger
 

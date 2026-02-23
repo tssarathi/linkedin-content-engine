@@ -97,14 +97,14 @@ linkedin-content-engine/
     │   ├── logger.py              # Dual-output logging (DEBUG → file, INFO → console)
     │   └── prompt_parser.py       # Extracts GitHub URLs from user input
     │
-    ├── research_agent/
+    ├── research_service/
     │   ├── graph.py               # LangGraph StateGraph definition
     │   ├── state.py               # ResearchState TypedDict
     │   ├── agents/                # Agent implementations
     │   ├── schemas/               # Pydantic output schemas
     │   └── prompts/               # System prompts
     │
-    └── content_agent/
+    └── content_service/
         ├── agent.py               # Root agent (SequentialAgent)
         ├── agents/                # Agent implementations
         ├── schemas/               # Pydantic output schemas
@@ -141,7 +141,7 @@ Copy `.env.example` to `.env` and fill in the required keys:
 OPENAI_API_KEY=              # Used by all research agents (GPT-4o-mini)
 GOOGLE_API_KEY=              # Used by all content agents (Gemini 2.5 Flash Lite)
 
-# Research Agent Tool Keys
+# Research Service Tool Keys
 RA_GA_GITHUB_API_KEY=        # GitHub Personal Access Token
 RA_NR_SERPER_API_KEY=        # Google Serper API key
 RA_TA_EXA_API_KEY=           # Exa API key

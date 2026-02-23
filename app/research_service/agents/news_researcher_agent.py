@@ -4,9 +4,9 @@ from langchain_community.tools import GoogleSerperRun
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain_openai import ChatOpenAI
 
-from app.research_agent.prompts.news_researcher_prompt import SYSTEM_PROMPT
-from app.research_agent.schemas.news_researcher_schema import NewsFindings
-from app.research_agent.state import ResearchState
+from app.research_service.prompts.news_researcher_prompt import SYSTEM_PROMPT
+from app.research_service.schemas.news_researcher_schema import NewsFindings
+from app.research_service.state import ResearchState
 from app.config.config import config
 from app.utilities.logger import get_logger
 

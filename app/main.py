@@ -8,9 +8,9 @@ from google.genai import types
 from langfuse.langchain import CallbackHandler as LangfuseCallbackHandler
 from openinference.instrumentation.google_adk import GoogleADKInstrumentor
 
-from app.content_agent.agent import root_agent
+from app.content_service.agent import root_agent
 from app.utilities.prompt_parser import parse_prompt
-from app.research_agent.graph import graph as research_graph
+from app.research_service.graph import graph as research_graph
 
 GoogleADKInstrumentor().instrument()
 
