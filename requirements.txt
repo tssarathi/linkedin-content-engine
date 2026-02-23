@@ -1,0 +1,10 @@
+python-dotenv
+pydantic
+langgraph
+langchain
+langchain-community
+langchain-mcp-adapters
+langchain-openai
+google-adk
+langfuse
+openinference-instrumentation-google-adk
