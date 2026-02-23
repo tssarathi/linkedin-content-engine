@@ -1,12 +1,27 @@
+# Core Dependencies
 python-dotenv
+
+# -- Validation --
 pydantic
+
+# -- Research Orchestration --
 langgraph
 langchain
 langchain-community
 langchain-mcp-adapters
 langchain-openai
+
+# -- Content Generation --
 google-adk
+
+# -- Observability --
 langfuse
 openinference-instrumentation-google-adk
+
+# -- API --
 fastapi
 uvicorn
+
+# -- User Interface --
+streamlit
+watchdog
