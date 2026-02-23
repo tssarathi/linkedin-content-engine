@@ -88,8 +88,6 @@ linkedin-content-engine/
 ├── requirements.txt               # Flat dependency list
 │
 └── app/
-    ├── linkedin_content_engine.py # CLI entry point & pipeline orchestration
-    │
     ├── config/
     │   └── config.py              # Centralised environment variable loader
     │
@@ -98,6 +96,7 @@ linkedin-content-engine/
     │   └── prompt_parser.py       # Extracts GitHub URLs from user input
     │
     └── core/
+        ├── linkedin_content_engine.py # CLI entry point & pipeline orchestration
         ├── research_service/
         │   ├── graph.py           # LangGraph StateGraph definition
         │   ├── state.py           # ResearchState TypedDict
@@ -158,13 +157,13 @@ LANGFUSE_BASE_URL=https://cloud.langfuse.com
 
 ```bash
 # With a topic prompt
-python -m app.linkedin_content_engine "Write a post about the rise of AI agents in developer tooling"
+python -m app.core.linkedin_content_engine "Write a post about the rise of AI agents in developer tooling"
 
 # With a GitHub repo
-python -m app.linkedin_content_engine "Showcase this project https://github.com/owner/repo"
+python -m app.core.linkedin_content_engine "Showcase this project https://github.com/owner/repo"
 
 # Interactive mode
-python -m app.linkedin_content_engine
+python -m app.core.linkedin_content_engine
 ```
 
 ## Tech Stack
