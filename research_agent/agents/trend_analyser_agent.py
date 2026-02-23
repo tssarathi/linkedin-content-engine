@@ -34,12 +34,6 @@ async def trend_analyser_agent(state: ResearchState) -> dict:
     all_tools = await client.get_tools()
     tools = [t for t in all_tools if t.name in ALLOWED_TOOLS]
 
-    if not tools:
-        raise RuntimeError(
-            f"Exa MCP server returned no usable tools. "
-            f"Expected {ALLOWED_TOOLS}, got {[t.name for t in all_tools]}"
-        )
-
     model = ChatOpenAI(
         model="gpt-4o-mini",
         temperature=0,

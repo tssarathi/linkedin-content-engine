@@ -17,8 +17,6 @@ async def github_analyser_agent(state: ResearchState) -> dict:
 
     repo_url = state["GA_repo_url"]
     parts = repo_url.rstrip("/").split("/")
-    if len(parts) < 2 or not all(parts[-2:]):
-        raise ValueError(f"Invalid GitHub repository URL: {repo_url!r}")
     owner, repo = parts[-2], parts[-1]
 
     logger.info("Analyzing repository: %s/%s", owner, repo)
@@ -40,12 +38,6 @@ async def github_analyser_agent(state: ResearchState) -> dict:
 
     all_tools = await client.get_tools()
     tools = [t for t in all_tools if t.name in ALLOWED_TOOLS]
-
-    if not tools:
-        raise RuntimeError(
-            f"GitHub MCP server returned no usable tools. "
-            f"Expected {ALLOWED_TOOLS}, got {[t.name for t in all_tools]}"
-        )
 
     model = ChatOpenAI(
         model="gpt-4o-mini",

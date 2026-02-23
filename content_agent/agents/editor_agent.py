@@ -10,7 +10,6 @@ def _escalate_on_approval(callback_context: CallbackContext) -> None:
     review = callback_context.state.get("editor_review")
     if review and review.get("approved"):
         callback_context._event_actions.escalate = True
-        callback_context.state["editor_approved"] = True
 
 
 editor_agent = Agent(
