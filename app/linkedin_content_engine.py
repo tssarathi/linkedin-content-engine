@@ -15,7 +15,7 @@ from app.core.research_service.graph import graph as research_graph
 GoogleADKInstrumentor().instrument()
 
 
-async def run_pipeline(user_input: str) -> str:
+async def get_post(user_input: str) -> str:
     request, github_url = parse_prompt(user_input)
 
     langfuse_handler = LangfuseCallbackHandler()
@@ -55,7 +55,7 @@ async def run_pipeline(user_input: str) -> str:
 
 async def main():
     user_input = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else input("Enter your prompt: ")
-    post = await run_pipeline(user_input)
+    post = await get_post(user_input)
     print(post)
 
 
