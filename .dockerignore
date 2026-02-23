@@ -1,0 +1,63 @@
+# Virtual Environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Environment variables
+.env
+.env.example
+
+# MacOS
+.DS_Store
+
+# Logs
+logs/
+
+# IDE / Editor Settings
+.vscode/
+.cursor/
+.claude/
+
+# Git
+.git/
+.gitignore
+.worktrees/
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Linter caches
+.mypy_cache/
+.ruff_cache/
+
+# Kubernetes manifests
+deployment.yaml
+service.yaml
+
+# Package Manager
+uv.lock
+requirements.txt
+
+# ADK
+.adk/
+
+# Docs / Plans
+docs/
+README.md
+plan.pdf
+plan_v2.pdf
+
+# Tests
+tests/
+
+# Interactive Demo
+interactive/
