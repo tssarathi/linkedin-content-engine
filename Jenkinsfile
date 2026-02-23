@@ -13,7 +13,7 @@ pipeline {
         stage('Cloning Github repo to Jenkins') {
             steps {
                 script {
-                    echo 'Cloning Github repo to Jenkins............'
+                    echo 'Cloning Github repo to Jenkins...'
                     checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '177099bc-d82d-4c6c-ba38-4fb72b1f0a12', url: 'https://github.com/tssarathi/linkedin-content-engine']])
                 }
             }
