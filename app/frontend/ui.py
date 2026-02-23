@@ -18,7 +18,9 @@ prompt = st.text_area(
     placeholder="e.g., Write a post about LangGraph https://github.com/langchain-ai/langgraph",
 )
 
-if st.button("Generate", type="primary", use_container_width=True, disabled=not prompt.strip()):
+if st.button(
+    "Generate", type="primary", use_container_width=True, disabled=not prompt.strip()
+):
     with st.spinner("Generating post..."):
         try:
             response = requests.post(
@@ -34,6 +36,11 @@ if st.button("Generate", type="primary", use_container_width=True, disabled=not 
                 "Cannot connect to backend. "
                 "Run `uvicorn app.backend.api:app --reload` first."
             )
+        except requests.exceptions.HTTPError as e:
+            if e.response is not None and e.response.status_code == 429:
+                st.error("Gemini API rate limit exceeded. ")
+            else:
+                st.error(f"Generation failed: {e}")
         except Exception as e:
             st.error(f"Generation failed: {e}")
 

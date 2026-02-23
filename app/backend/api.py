@@ -28,4 +28,5 @@ async def request_endpoint(request: RequestState):
 
     except Exception as e:
         logger.error(f"Error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        status_code = 429 if "RESOURCE_EXHAUSTED" in str(e) else 500
+        raise HTTPException(status_code=status_code, detail=str(e))
