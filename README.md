@@ -68,7 +68,7 @@ User Prompt (+ optional GitHub URL)
 | **Supervisor** | Determines post type, extracts buzzwords for keyword search and project context for semantic search | GPT-4o-mini |
 | **News Researcher** | Finds recent news articles related to the topic (last 90 days) | Google Serper |
 | **Trend Analyser** | Discovers trending topics and discussions via semantic search | Exa MCP (`web_search_exa`) |
-| **Fact Checker** | Verifies claims from the research agents against independent sources | Tavily MCP (`tavily_search`) |
+| **Fact Checker** | Verifies claims from the research service against independent sources | Tavily MCP (`tavily_search`) |
 | **Synthesizer** | Combines all findings into a structured research brief | GPT-4o-mini |
 
 ## Content Service
@@ -138,8 +138,8 @@ Copy `.env.example` to `.env` and fill in the required keys:
 
 ```env
 # LLM API Keys
-OPENAI_API_KEY=              # Used by all research agents (GPT-4o-mini)
-GOOGLE_API_KEY=              # Used by all content agents (Gemini 2.5 Flash Lite)
+OPENAI_API_KEY=              # Used by the research service (GPT-4o-mini)
+GOOGLE_API_KEY=              # Used by the content service (Gemini 2.5 Flash Lite)
 
 # Research Service Tool Keys
 RS_GA_GITHUB_API_KEY=        # GitHub Personal Access Token
