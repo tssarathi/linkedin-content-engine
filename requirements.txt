@@ -8,3 +8,5 @@ langchain-openai
 google-adk
 langfuse
 openinference-instrumentation-google-adk
+fastapi
+uvicorn
