@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SONAR_PROJECT_KEY = 'linkedin-content-engine'
-        SONAR_SCANNER_HOME = tool 'linkedin-content-engine-sonarqube'
+        SONAR_SCANNER_HOME = tool 'lcs-sonarqube-tool'
         // AWS_REGION = 'us-east-1'
         // ECR_REPO = 'my-repo'
         // IMAGE_TAG = 'latest'
@@ -21,8 +21,8 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withCredentials([string(credentialsId: 'linkedin-content-engine-sonarqube', variable: 'SONAR_TOKEN')]) {
-                    withSonarQubeEnv('linkedin-content-engine-sonarqube') {
+                withCredentials([string(credentialsId: 'lcs-sonarqube-credentials', variable: 'SONAR_TOKEN')]) {
+                    withSonarQubeEnv('lcs-sonarqube-env') {
                         sh """
                             ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                             -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
