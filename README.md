@@ -84,31 +84,56 @@ User Prompt (+ optional GitHub URL)
 
 ```
 linkedin-content-engine/
-├── pyproject.toml                 # Project metadata & dependencies (v2.0.0)
-├── requirements.txt               # Flat dependency list
+├── main.py                           # Unified launcher: starts backend + frontend together
+├── pyproject.toml                    # Project metadata & dependencies (v3.0.0)
+├── requirements.txt                  # Flat dependency list
+├── Dockerfile                        # Application Docker image (exposes 8000 + 8501)
+├── Jenkinsfile                       # CI/CD: SonarQube analysis + ECR build/push
+├── .env.example                      # Template for required API keys
 │
-└── app/
-    ├── config/
-    │   └── config.py              # Centralised environment variable loader
-    │
-    ├── utilities/
-    │   ├── logger.py              # Dual-output logging (DEBUG → file, INFO → console)
-    │   └── prompt_parser.py       # Extracts GitHub URLs from user input
-    │
-    └── core/
-        ├── linkedin_content_engine.py # CLI entry point & pipeline orchestration
-        ├── research_service/
-        │   ├── graph.py           # LangGraph StateGraph definition
-        │   ├── state.py           # ResearchState TypedDict
-        │   ├── agents/            # Agent implementations
-        │   ├── schemas/           # Pydantic output schemas
-        │   └── prompts/           # System prompts
-        │
-        └── content_service/
-            ├── agent.py           # Root agent (SequentialAgent)
-            ├── agents/            # Agent implementations
-            ├── schemas/           # Pydantic output schemas
-            └── prompts/           # Agent instructions
+├── jenkins/
+│   └── Dockerfile                    # Custom Jenkins LTS image with Docker-in-Docker
+│
+├── app/
+│   ├── backend/
+│   │   └── api.py                    # FastAPI app — POST /request endpoint
+│   │
+│   ├── frontend/
+│   │   └── ui.py                     # Streamlit UI — connects to backend on port 8000
+│   │
+│   ├── config/
+│   │   └── config.py                 # Centralised environment variable loader
+│   │
+│   ├── utilities/
+│   │   ├── logger.py                 # Dual-output logging (DEBUG → file, INFO → console)
+│   │   └── prompt_parser.py          # Extracts GitHub URLs from user input
+│   │
+│   └── core/
+│       ├── linkedin_content_engine.py  # Pipeline orchestration (get_post coroutine)
+│       ├── research_service/
+│       │   ├── graph.py              # LangGraph StateGraph definition
+│       │   ├── state.py              # ResearchState TypedDict
+│       │   ├── agents/               # Agent implementations
+│       │   ├── schemas/              # Pydantic output schemas
+│       │   └── prompts/              # System prompts
+│       │
+│       └── content_service/
+│           ├── agent.py              # Root agent (SequentialAgent)
+│           ├── agents/               # Agent implementations
+│           ├── schemas/              # Pydantic output schemas
+│           └── prompts/              # Agent instructions
+│
+└── interactive/                      # Optional: feature-rich demo mode (not included in Docker image)
+    ├── run.py                        # Interactive launcher (backend on 8100, frontend on 8501)
+    ├── backend/
+    │   ├── api.py                    # Async job API: POST /generate, GET /status/{id}, GET /jobs
+    │   ├── engine.py                 # Pipeline runner with per-agent trace + token tracking
+    │   ├── job_store.py              # In-memory job/agent state store
+    │   └── schemas.py                # JobState, AgentProgress, TraceEvent, TokenUsage
+    ├── dashboard/
+    │   └── app.py                    # Streamlit dashboard (wide layout, sidebar history, live polling)
+    └── frontend/
+        └── components.py             # Agent cards, trace viewer, progress bar, output section
 ```
 
 ## Getting Started
@@ -117,6 +142,7 @@ linkedin-content-engine/
 
 - Python 3.11+
 - Node.js (for MCP servers via `npx`)
+- Docker (optional — for containerised deployment)
 - API keys (see below)
 
 ### Installation
@@ -153,7 +179,41 @@ LANGFUSE_PUBLIC_KEY=
 LANGFUSE_BASE_URL=https://cloud.langfuse.com
 ```
 
-### Usage
+## Usage
+
+### Web Application (Recommended)
+
+The primary way to run the app — starts both the FastAPI backend and Streamlit frontend together:
+
+```bash
+python main.py
+```
+
+- Backend API: `http://localhost:8000`
+- Frontend UI: `http://localhost:8501`
+- API Docs (Swagger): `http://localhost:8000/docs`
+
+### Interactive Demo Mode
+
+A feature-rich version with live per-agent progress tracking, token usage, cost breakdown, and a dashboard with job history:
+
+```bash
+python interactive/run.py
+```
+
+- Backend API: `http://localhost:8100`
+- Dashboard: `http://localhost:8501`
+
+**Dashboard features:**
+- Real-time progress bar showing agent completion
+- Live agent trace view split by Research Service and Content Service
+- Per-agent token usage and cost tracking
+- Hook variant tabs (Original / Question / Bold Claim / Relatable)
+- Editor score breakdown (Hook Strength, Authenticity, Value Density)
+- Pipeline metrics summary (total tokens, cost, time)
+- Sidebar with job history
+
+### CLI
 
 ```bash
 # With a topic prompt
@@ -166,6 +226,73 @@ python -m app.core.linkedin_content_engine "Showcase this project https://github
 python -m app.core.linkedin_content_engine
 ```
 
+## API Reference
+
+### `POST /request`
+
+Generate a LinkedIn post from a prompt.
+
+**Request:**
+```json
+{
+  "prompt": "Write a post about the rise of AI agents in developer tooling"
+}
+```
+
+**Response:**
+```json
+{
+  "post": "The publish-ready LinkedIn post text..."
+}
+```
+
+**Error responses:**
+| Status | Description |
+|--------|-------------|
+| `429` | Gemini API rate limit exceeded |
+| `500` | Internal server error |
+
+## Docker
+
+### Build
+
+```bash
+docker build -t linkedin-content-engine .
+```
+
+### Run
+
+```bash
+# Pass API keys as environment variables
+docker run -p 8000:8000 -p 8501:8501 \
+  -e OPENAI_API_KEY=sk-... \
+  -e GOOGLE_API_KEY=... \
+  -e RS_GA_GITHUB_API_KEY=... \
+  -e RS_NR_SERPER_API_KEY=... \
+  -e RS_TA_EXA_API_KEY=... \
+  -e RS_FC_TAVILY_API_KEY=... \
+  linkedin-content-engine
+
+# Or mount a .env file
+docker run -p 8000:8000 -p 8501:8501 \
+  --env-file .env \
+  linkedin-content-engine
+```
+
+> **Note:** The Docker image does not include Node.js. MCP-backed agents (GitHub Analyser, Trend Analyser, Fact Checker) require `npx` at runtime and will not function inside the container without adding Node.js to the Dockerfile.
+
+## CI/CD Pipeline
+
+The project includes a Jenkins pipeline (`Jenkinsfile`) with the following stages:
+
+| Stage | Description |
+|-------|-------------|
+| **Clone** | Checks out `main` from GitHub |
+| **SonarQube Analysis** | Runs static code analysis via SonarQube |
+| **Build & Push to ECR** | Builds the Docker image and pushes to AWS ECR (`ap-southeast-2`) |
+
+A custom Jenkins image (`jenkins/Dockerfile`) with Docker-in-Docker support is provided for running the pipeline.
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -174,9 +301,13 @@ python -m app.core.linkedin_content_engine
 | Content generation | [Google ADK](https://google.github.io/adk-docs/) |
 | Research LLM | [OpenAI GPT-4o-mini](https://platform.openai.com/) |
 | Content LLM | [Google Gemini 2.5 Flash Lite](https://ai.google.dev/) |
+| Backend API | [FastAPI](https://fastapi.tiangolo.com/) + [Uvicorn](https://www.uvicorn.org/) |
+| Frontend UI | [Streamlit](https://streamlit.io/) |
 | Data validation | [Pydantic](https://docs.pydantic.dev/) |
 | External search | Google Serper, Exa, Tavily |
 | Tool integration | [MCP](https://modelcontextprotocol.io/) (GitHub, Tavily, Exa servers via `npx`) |
+| Containerisation | [Docker](https://www.docker.com/) |
+| CI/CD | [Jenkins](https://www.jenkins.io/) + [AWS ECR](https://aws.amazon.com/ecr/) |
 | Observability | [Langfuse](https://langfuse.com/) + [OpenInference](https://github.com/Arize-ai/openinference) |
 
 ## License
