@@ -173,9 +173,7 @@ LANGFUSE_BASE_URL=https://cloud.langfuse.com
 
 ## Usage
 
-### Web Application (Recommended)
-
-The primary way to run the app — starts both the FastAPI backend and Streamlit frontend together:
+Start both the FastAPI backend and Streamlit frontend together:
 
 ```bash
 python main.py
@@ -184,19 +182,6 @@ python main.py
 - Backend API: `http://localhost:8000`
 - Frontend UI: `http://localhost:8501`
 - API Docs (Swagger): `http://localhost:8000/docs`
-
-### CLI
-
-```bash
-# With a topic prompt
-python -m app.core.linkedin_content_engine "Write a post about the rise of AI agents in developer tooling"
-
-# With a GitHub repo
-python -m app.core.linkedin_content_engine "Showcase this project https://github.com/owner/repo"
-
-# Interactive mode
-python -m app.core.linkedin_content_engine
-```
 
 ## API Reference
 
