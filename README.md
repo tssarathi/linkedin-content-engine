@@ -62,16 +62,20 @@ User Prompt (+ optional GitHub URL)
 
 ## Research Service
 
+All research agents run on **GPT-4o-mini** via LangChain.
+
 | Agent | Role | Tools |
 |-------|------|-------|
 | **GitHub Analyser** | Extracts tech stack, features, and summary from a GitHub repo | GitHub MCP (`get_file_contents`, `list_commits`) |
-| **Supervisor** | Determines post type, extracts buzzwords for keyword search and project context for semantic search | GPT-4o-mini |
+| **Supervisor** | Determines post type, extracts buzzwords for keyword search and project context for semantic search | Structured output (no tools) |
 | **News Researcher** | Finds recent news articles related to the topic (last 90 days) | Google Serper |
 | **Trend Analyser** | Discovers trending topics and discussions via semantic search | Exa MCP (`web_search_exa`) |
 | **Fact Checker** | Verifies claims from the research service against independent sources | Tavily MCP (`tavily_search`) |
-| **Synthesizer** | Combines all findings into a structured research brief | GPT-4o-mini |
+| **Synthesizer** | Combines all findings into a structured research brief | Structured output (no tools) |
 
 ## Content Service
+
+All content agents run on **Gemini 2.5 Flash Lite** via Google ADK.
 
 | Agent | Role |
 |-------|------|
@@ -84,56 +88,44 @@ User Prompt (+ optional GitHub URL)
 
 ```
 linkedin-content-engine/
-├── main.py                           # Unified launcher: starts backend + frontend together
-├── pyproject.toml                    # Project metadata & dependencies (v3.0.0)
-├── requirements.txt                  # Flat dependency list
-├── Dockerfile                        # Application Docker image (exposes 8000 + 8501)
-├── Jenkinsfile                       # CI/CD: SonarQube analysis + ECR build/push
-├── .env.example                      # Template for required API keys
+├── main.py                             # Unified launcher: starts backend + frontend together
+├── pyproject.toml                      # Project metadata & dependencies (v3.0.0)
+├── requirements.txt                    # Flat dependency list
+├── Dockerfile                          # Application Docker image (exposes 8000 + 8501)
+├── Jenkinsfile                         # CI/CD: SonarQube analysis + ECR build/push
+├── .env.example                        # Template for required API keys
 │
 ├── jenkins/
-│   └── Dockerfile                    # Custom Jenkins LTS image with Docker-in-Docker
+│   └── Dockerfile                      # Custom Jenkins LTS image with Docker-in-Docker
 │
-├── app/
-│   ├── backend/
-│   │   └── api.py                    # FastAPI app — POST /request endpoint
-│   │
-│   ├── frontend/
-│   │   └── ui.py                     # Streamlit UI — connects to backend on port 8000
-│   │
-│   ├── config/
-│   │   └── config.py                 # Centralised environment variable loader
-│   │
-│   ├── utilities/
-│   │   ├── logger.py                 # Dual-output logging (DEBUG → file, INFO → console)
-│   │   └── prompt_parser.py          # Extracts GitHub URLs from user input
-│   │
-│   └── core/
-│       ├── linkedin_content_engine.py  # Pipeline orchestration (get_post coroutine)
-│       ├── research_service/
-│       │   ├── graph.py              # LangGraph StateGraph definition
-│       │   ├── state.py              # ResearchState TypedDict
-│       │   ├── agents/               # Agent implementations
-│       │   ├── schemas/              # Pydantic output schemas
-│       │   └── prompts/              # System prompts
-│       │
-│       └── content_service/
-│           ├── agent.py              # Root agent (SequentialAgent)
-│           ├── agents/               # Agent implementations
-│           ├── schemas/              # Pydantic output schemas
-│           └── prompts/              # Agent instructions
-│
-└── interactive/                      # Optional: feature-rich demo mode (not included in Docker image)
-    ├── run.py                        # Interactive launcher (backend on 8100, frontend on 8501)
+└── app/
     ├── backend/
-    │   ├── api.py                    # Async job API: POST /generate, GET /status/{id}, GET /jobs
-    │   ├── engine.py                 # Pipeline runner with per-agent trace + token tracking
-    │   ├── job_store.py              # In-memory job/agent state store
-    │   └── schemas.py                # JobState, AgentProgress, TraceEvent, TokenUsage
-    ├── dashboard/
-    │   └── app.py                    # Streamlit dashboard (wide layout, sidebar history, live polling)
-    └── frontend/
-        └── components.py             # Agent cards, trace viewer, progress bar, output section
+    │   └── api.py                      # FastAPI app — POST /request endpoint
+    │
+    ├── frontend/
+    │   └── ui.py                       # Streamlit UI — connects to backend on port 8000
+    │
+    ├── config/
+    │   └── config.py                   # Centralised environment variable loader
+    │
+    ├── utilities/
+    │   ├── logger.py                   # Dual-output logging (DEBUG → file, INFO → console)
+    │   └── prompt_parser.py            # Extracts GitHub URLs from user input
+    │
+    └── core/
+        ├── linkedin_content_engine.py  # Pipeline orchestration (get_post coroutine)
+        ├── research_service/
+        │   ├── graph.py                # LangGraph StateGraph definition
+        │   ├── state.py                # ResearchState TypedDict
+        │   ├── agents/                 # 6 agent implementations
+        │   ├── schemas/                # Pydantic output schemas
+        │   └── prompts/                # System prompts
+        │
+        └── content_service/
+            ├── agent.py                # Root agent (SequentialAgent)
+            ├── agents/                 # 4 agent implementations
+            ├── schemas/                # Pydantic output schemas
+            └── prompts/                # Agent instructions
 ```
 
 ## Getting Started
@@ -192,26 +184,6 @@ python main.py
 - Backend API: `http://localhost:8000`
 - Frontend UI: `http://localhost:8501`
 - API Docs (Swagger): `http://localhost:8000/docs`
-
-### Interactive Demo Mode
-
-A feature-rich version with live per-agent progress tracking, token usage, cost breakdown, and a dashboard with job history:
-
-```bash
-python interactive/run.py
-```
-
-- Backend API: `http://localhost:8100`
-- Dashboard: `http://localhost:8501`
-
-**Dashboard features:**
-- Real-time progress bar showing agent completion
-- Live agent trace view split by Research Service and Content Service
-- Per-agent token usage and cost tracking
-- Hook variant tabs (Original / Question / Bold Claim / Relatable)
-- Editor score breakdown (Hook Strength, Authenticity, Value Density)
-- Pipeline metrics summary (total tokens, cost, time)
-- Sidebar with job history
 
 ### CLI
 
