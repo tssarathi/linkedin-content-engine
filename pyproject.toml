@@ -20,6 +20,7 @@ dependencies = [
     "openinference-instrumentation-google-adk",
     "fastapi",
     "uvicorn",
+    "streamlit",
 ]
 
 [tool.setuptools.packages.find]
