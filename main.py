@@ -1,4 +1,5 @@
 import subprocess
+import sys
 import threading
 import time
 
@@ -15,7 +16,7 @@ def run_backend():
     try:
         logger.info("Starting backend server")
         subprocess.run(
-            ["uvicorn", "app.backend.api:app", "--host", "127.0.0.1", "--port", "8000"],
+            [sys.executable, "-m", "uvicorn", "app.backend.api:app", "--host", "127.0.0.1", "--port", "8000"],
             check=True,
         )
     except Exception as e:
@@ -26,7 +27,7 @@ def run_backend():
 def run_frontend():
     try:
         logger.info("Starting frontend server")
-        subprocess.run(["streamlit", "run", "app/frontend/ui.py"], check=True)
+        subprocess.run([sys.executable, "-m", "streamlit", "run", "app/frontend/ui.py"], check=True)
     except Exception as e:
         logger.error("Problem with frontend service")
         raise Exception(f"Problem with frontend service: {e}")
