@@ -6,7 +6,7 @@ pipeline {
         SONAR_SCANNER_HOME = tool 'lcs-sonarqube-tool'
         AWS_REGION = 'ap-southeast-2'
         ECR_REPO = 'tssarathi/linkedin-content-engine'
-        IMAGE_TAG = 'latest'
+        IMAGE_TAG = "${env.GIT_COMMIT?.take(7) ?: 'latest'}"
     }
 
     stages {
@@ -57,7 +57,32 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'lcs-jenkins-aws']]) {
                     script {
+                        def accountId = sh(script: "aws sts get-caller-identity --query Account --output text", returnStdout: true).trim()
+                        def fullImage = "${accountId}.dkr.ecr.${env.AWS_REGION}.amazonaws.com/${env.ECR_REPO}:${IMAGE_TAG}"
+
+                        // Get current task definition and update it with the new image
                         sh """
+                            TASK_DEF=\$(aws ecs describe-task-definition \
+                              --task-definition linkedin-content-engine-task \
+                              --region ${AWS_REGION} \
+                              --query 'taskDefinition' --output json)
+
+                            NEW_DEF=\$(echo \$TASK_DEF | python3 -c "
+import sys, json
+td = json.load(sys.stdin)
+td['containerDefinitions'][0]['image'] = '${fullImage}'
+# Keep only fields needed for register-task-definition
+keep = ['family','containerDefinitions','taskRoleArn','executionRoleArn',
+        'networkMode','volumes','placementConstraints','requiresCompatibilities',
+        'cpu','memory','runtimePlatform']
+print(json.dumps({k: td[k] for k in keep if k in td}))
+")
+
+                            echo "\$NEW_DEF" > /tmp/new-task-def.json
+                            aws ecs register-task-definition \
+                              --cli-input-json file:///tmp/new-task-def.json \
+                              --region ${AWS_REGION}
+
                             aws ecs update-service \
                               --cluster linkedin-content-engine-def \
                               --service linkedin-content-engine-task-service-b1erkfpw \
