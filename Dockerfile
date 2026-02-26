@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY . .
 
 ## Run pyproject.toml
-RUN pip install --no-cache-dir -e .
+RUN pip install --no-cache-dir -e . && \
+    streamlit --version
 
 # Used PORTS
 EXPOSE 8501
